@@ -1,8 +1,8 @@
 package org.osas3cf.core
 {
+	import org.osas3cf.core.core;
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
-	import org.osas3cf.core.core;
 	CONFIG::debug{import org.osas3cf.utility.Debug;}
 	
 	/**
@@ -78,7 +78,7 @@ package org.osas3cf.core
 		private function cleanUp():void
 		{
 			for each(var client:IClient in clients)
-				removeClient(client.name);
+				addMetaData(new MetaData(MetaData.REMOVE_CLIENT, client.name));
 			clients = null;
 		}
 		
