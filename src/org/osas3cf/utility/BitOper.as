@@ -21,9 +21,14 @@
  **/
 package org.osas3cf.utility
 {
+	import flash.errors.IllegalOperationError;
+
 	public class BitOper
 	{
-		public function BitOper(){}
+		public function BitOper()
+		{
+			throw new IllegalOperationError("BitOper class should never be initalized as there are no BitOper objects in OSAS3CF");
+		}
 		
 		public static function contains(array:Array, value:String):Array
 		{
