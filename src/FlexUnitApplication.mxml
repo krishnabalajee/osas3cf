@@ -8,14 +8,16 @@
 	<fx:Script>
 		<![CDATA[
 			import flexUnitTests.ClientTest;
-			import flexUnitTests.BitOperTest;
+			import flexUnitTests.StaticUtilies;
+			import flexUnitTests.PiecesTest;
 			import flexUnitTests.UtilityTests;
 			
 			public function currentRunTestSuite():Array
 			{
 				var testsToRun:Array = new Array();
 				testsToRun.push(flexUnitTests.UtilityTests);
-				testsToRun.push(flexUnitTests.BitOperTest);
+				testsToRun.push(flexUnitTests.PiecesTest);
+				testsToRun.push(flexUnitTests.StaticUtilies);
 				testsToRun.push(flexUnitTests.ClientTest);
 				return testsToRun;
 			}

@@ -38,7 +38,7 @@ package org.osas3cf.utility
 		
 		public static function arrayNoteToSquare(point:Point):String
 		{
-			return String.fromCharCode(point.x + String("A").charCodeAt(0)) + String(point.y+1);
+			return String.fromCharCode(point.x + String("A").charCodeAt(0)) + String(point.y + 1);
 		}
 	}
 }
