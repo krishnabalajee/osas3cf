@@ -62,7 +62,10 @@ package org.osas3cf.board
 					sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES, oldState, new BitBoard(pieces))));
 					break;
 				case MoveMetaData.CAPTURE_PIECE:
-					oldState = new Array(_capturedPieces.toString());
+					if(_capturedPieces.length > 0)
+						oldState = new Array(_capturedPieces.toString());
+					else
+						oldState = [];
 					square = metaData.data as MoveVO;
 					CONFIG::debug{Debug.out("Capture "+square.piece+" from " + square.currentSquare, this);}
 					_capturedPieces.push(square.piece);

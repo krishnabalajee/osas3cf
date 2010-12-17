@@ -1,11 +1,11 @@
 package flexUnitTests
 {
-	import flexUnitTests.BitOperTest;
+	import flexUnitTests.StaticUtilies;
 	
 	[Suite]
 	[RunWith("org.flexunit.runners.Suite")]
 	public class UtilityTests
 	{
-		public var test1:flexUnitTests.BitOperTest;
+		public var test1:flexUnitTests.StaticUtilies;
 	}
 }
