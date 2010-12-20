@@ -24,6 +24,8 @@ package org.osas3cf.utility
 	import flash.errors.IllegalOperationError;
 	import flash.geom.Point;
 	
+	import org.osas3cf.data.BitBoard;
+	
 	public class BoardUtil
 	{
 		public function BoardUtil()
@@ -33,12 +35,37 @@ package org.osas3cf.utility
 		
 		public static function squareToArrayNote(square:String):Point
 		{
-			return new Point(Number(square.charCodeAt(0) - String("A").charCodeAt(0)), Number(square.charAt(1)) - 1);
+			return new Point(Number(square.charAt(1)) - 1, Number(square.charCodeAt(0) - String("A").charCodeAt(0)));
 		}
 		
 		public static function arrayNoteToSquare(point:Point):String
 		{
-			return String.fromCharCode(point.x + String("A").charCodeAt(0)) + String(point.y + 1);
+			return String.fromCharCode(point.y + String("A").charCodeAt(0)) + String(point.x + 1);
+		}
+		
+		public static function isTrue(square:String, bitBoard:Array):Boolean
+		{
+			var point:Point = BoardUtil.squareToArrayNote(square);
+			if(String(bitBoard[point.x][point.y]) != "0")
+				return true;
+			else
+				return false;
+		}
+		
+		public static function getTrueSquares(board:Array):Array
+		{
+			var results:Array = [];
+			for(var x:String in board)
+			{
+				for(var y:String in board[x])
+				{
+					if(String(board[x][y]) != "0")
+					{
+						results.push(BoardUtil.arrayNoteToSquare(new Point(Number(x), Number(y))));
+					}
+				}
+			}
+			return results;
 		}
 	}
 }
