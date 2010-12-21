@@ -33,19 +33,14 @@ package org.osas3cf.utility
 		public static function contains(array:Array, value:String):Array
 		{
 			var result:Array = [];
-			var recursive:Array;
 			for(var i:String in array)
-			{
-				if(array[i] is String || array[i] is Number){
-					if(String(array[i]).indexOf(value) != -1)
-						result[i] = 1;
-					else
-						result[i] = 0;
-				}else{
-					recursive = BitOper.contains(array[i], value);
-					if(recursive.length > 0)
-						result[i] = recursive;
-				}
+			{	
+				if(array[i] is Array)
+					result[i] = BitOper.contains(array[i], value);				
+				else if(String(array[i]).indexOf(value) != -1)
+					result[i] = 1;				
+				else
+					result[i] = 0;
 			}
 			return result;
 		}
@@ -53,19 +48,14 @@ package org.osas3cf.utility
 		public static function doesNotContain(array:Array, value:String):Array
 		{
 			var result:Array = [];
-			var recursive:Array;
 			for(var i:String in array)
 			{
-				if(array[i] is String || array[i] is Number){	
-					if(String(array[i]).indexOf(value) == -1){
-						result[i] = 1;
-				}	else
-						result[i] = 0;
-				}else{
-					recursive = BitOper.doesNotContain(array[i], value);
-					if(recursive.length > 0)
-						result[i] = recursive;
-				}
+				if(array[i] is Array)
+					result[i] = BitOper.doesNotContain(array[i], value);				
+				else if(String(array[i]).indexOf(value) == -1)
+					result[i] = 1;
+				else
+					result[i] = 0;
 			}
 			return result;
 		}	
@@ -73,20 +63,15 @@ package org.osas3cf.utility
 		public static function and(arrayA:Array, arrayB:Array):Array
 		{
 			var result:Array = [];
-			var recursive:Array;
 			if(arrayA.length != arrayB.length) return result;
 			for(var i:String in arrayA)
 			{
-				if((arrayA[i] is Number && arrayB[i] is Number) || (arrayA[i] is String && arrayB[i] is String)){
-					if(String(arrayA[i]) != "0" && String(arrayB[i]) != "0")
-						result[i] = 1;
-					else
-						result[i] = 0;
-				}else{
-					recursive = BitOper.and(arrayA[i], arrayB[i]);
-					if(recursive.length > 0)
-						result[i] = recursive;
-				}	
+				if(arrayA[i] is Array && arrayB[i] is Array)
+					result[i] = BitOper.and(arrayA[i], arrayB[i]);			
+				else if(String(arrayA[i]) != "0" && String(arrayB[i]) != "0")
+					result[i] = 1;
+				else
+					result[i] = 0;	
 			}
 			return result;
 		}
@@ -94,40 +79,31 @@ package org.osas3cf.utility
 		public static function or(arrayA:Array, arrayB:Array):Array
 		{
 			var result:Array = [];
-			var recursive:Array;
 			if(arrayA.length != arrayB.length) return result;
 			for(var i:String in arrayA)
 			{
-				if((arrayA[i] is Number && arrayB[i] is Number) || (arrayA[i] is String && arrayB[i] is String)){
-					if(String(arrayA[i]) != "0" || String(arrayB[i]) != "0")
-						result[i] = 1;
-					else
-						result[i] = 0;
-				}else{
-					recursive = BitOper.or(arrayA[i], arrayB[i]);
-					if(recursive.length > 0)
-						result[i] = recursive;
-				}	
+				if(arrayA[i] is Array && arrayB[i] is Array)
+					result[i] = BitOper.or(arrayA[i], arrayB[i]);				
+				else if(String(arrayA[i]) != "0" || String(arrayB[i]) != "0")
+					result[i] = 1;
+				else
+					result[i] = 0;
 			}
 			return result;
 		}
 		
-		public static function not(arrayA:Array):Array
+		public static function not(array:Array):Array
 		{
 			var result:Array = [];
 			var recursive:Array;
-			for(var i:String in arrayA)
+			for(var i:String in array)
 			{
-				if(arrayA[i] is Number || arrayA[i] is String){
-					if(String(arrayA[i]) == "0")
-						result[i] = 1;
-					else
-						result[i] = 0;
-				}else{
-					recursive = BitOper.not(arrayA[i]);
-					if(recursive.length > 0)
-						result[i] = recursive;
-				}	
+				if(array[i] is Array)
+					result[i] = BitOper.not(array[i]);			
+				else if(String(array[i]) == "0")
+					result[i] = 1;					
+				else
+					result[i] = 0;
 			}
 			return result;
 		}
@@ -135,20 +111,15 @@ package org.osas3cf.utility
 		public static function notX(arrayA:Array, arrayB:Array):Array
 		{
 			var result:Array = [];
-			var recursive:Array;
 			if(arrayA.length != arrayB.length) return result;
 			for(var i:String in arrayA)
 			{
-				if((arrayA[i] is Number && arrayB[i] is Number) || (arrayA[i] is String && arrayB[i] is String)){
-					if(String(arrayA[i]) == "0" || String(arrayB[i]) == "0")
-						result[i] = 1;
-					else
-						result[i] = 0;
-				}else{
-					recursive = BitOper.notX(arrayA[i], arrayB[i]);
-					if(recursive.length > 0)
-						result[i] = recursive;
-				}	
+				if(arrayA[i] is Array && arrayB[i] is Array)
+					result[i] = BitOper.notX(arrayA[i], arrayB[i]);			
+				else if(String(arrayA[i]) == "0" || String(arrayB[i]) == "0")
+					result[i] = 1;
+				else
+					result[i] = 0;	
 			}
 			return result;
 		}		
