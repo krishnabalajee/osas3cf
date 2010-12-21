@@ -23,7 +23,6 @@ package org.osas3cf.validation.rules.chess
 {
 	import flash.geom.Point;
 	
-	import org.osas3cf.board.Board;
 	import org.osas3cf.board.ChessPieces;
 	import org.osas3cf.board.Pieces;
 	import org.osas3cf.data.BitBoard;
