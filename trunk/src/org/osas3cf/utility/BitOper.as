@@ -95,7 +95,6 @@ package org.osas3cf.utility
 		public static function not(array:Array):Array
 		{
 			var result:Array = [];
-			var recursive:Array;
 			for(var i:String in array)
 			{
 				if(array[i] is Array)
