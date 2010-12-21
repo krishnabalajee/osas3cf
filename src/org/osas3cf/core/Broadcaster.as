@@ -70,19 +70,16 @@ package org.osas3cf.core
 			}
 		}
 		
-		public function get name():String
-		{
-			return _name;
-		}
+		public function get name():String{return _name;}
 		
-		public function addClient(clientVO:ClientVO):void
+		private function addClient(clientVO:ClientVO):void
 		{
 			CONFIG::debug{Debug.out(name + " adding client " + clientVO.cilent.name, this);}
 			clients.push(clientVO.cilent);
 			clientVO.cilent.addBroadcaster(this, clientVO);
 		}
 		
-		public function removeClient(name:String):void
+		private function removeClient(name:String):void
 		{
 			for(var i:String in clients)
 			{
