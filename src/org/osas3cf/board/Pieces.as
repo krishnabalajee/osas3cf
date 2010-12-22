@@ -50,7 +50,7 @@ package org.osas3cf.board
 			{
 				case MetaData.CLIENT_ADDED:
 					var clientVO:ClientVO = metaData.data as ClientVO;
-					if(clientVO.cilent is Pieces)
+					if(clientVO.client is Pieces)
 						createPiecesArray(clientVO.params['row'], clientVO.params['column']);
 				break;
 				case MoveMetaData.MOVE_PIECE:

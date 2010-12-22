@@ -65,7 +65,7 @@ package org.osas3cf.board
 			{
 				case MetaData.CLIENT_ADDED:
 					var clientVO:ClientVO = metaData.data as ClientVO;
-					if(clientVO.cilent is ChessPieces)
+					if(clientVO.client is ChessPieces)
 						setupPieces(clientVO.params['setup']);
 				break;
 				default:

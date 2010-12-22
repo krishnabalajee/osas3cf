@@ -17,35 +17,43 @@ package org.osas3cf.board
 		{
 			_name = name;
 			board = new Broadcaster(name);
-			CONFIG::debug{Debug.out("ChessBoard created", this);}	
 		}
 		
 		override public function onMetaData(metaData:MetaData):void
 		{
-			CONFIG::debug{Debug.out("onMetaData " + metaData, this);}
-		}
-		
-		public function setUp(piecePostion:Array = null):void
-		{
-			var board:Object = {row:8, column:8};
-			board.setup = piecePostion;
-			addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new ChessPieces(), board)));
-		}
-			
-		public function cleanUp():void
-		{
-			addMetaData(new MetaData(MetaData.CLEAN_UP));
-			board = null;
+			switch(metaData.type)
+			{
+				case MetaData.CLIENT_ADDED:
+					var clientVO:ClientVO = metaData.data as ClientVO;
+					if(clientVO.client is ChessBoard)
+						setUp(clientVO.params['piecesSetup']);
+					break;	
+				case MetaData.CLEAN_UP:
+					cleanUp();
+					break;
+			}
 		}
 		
 		public function addMetaData(metaData:MetaData):void
 		{
 			board.addMetaData(metaData);
+		}		
+		
+		private function setUp(piecePostion:Array = null):void
+		{
+			CONFIG::debug{Debug.out("Setting up chess board", this);}
+			var board:Object = {row:8, column:8};
+			board.setup = piecePostion;
+			addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new ChessPieces(), board)));
+		}
+			
+		private function cleanUp():void
+		{
+			CONFIG::debug{Debug.out("Cleaning up chess board", this);}
+			addMetaData(new MetaData(MetaData.CLEAN_UP));
+			board = null;
 		}
 		
-		override public function get name():String
-		{
-			return _name;
-		}
+		override public function get name():String{return _name;}
 	}
 }
