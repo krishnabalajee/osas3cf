@@ -34,8 +34,8 @@ package org.osas3cf.core.data
 			_params = params;
 		}
 		
-		public function get cilent():IClient	{return _client;}
+		public function get client():IClient	{return _client;}
 		public function get params():Object		{return _params;}
-		public function toString():String		{return "ClientVO {client: "+cilent.name+", params: "+params+"}";}
+		public function toString():String		{return "ClientVO {client: "+client.name+", params: "+params+"}";}
 	}
 }

@@ -74,9 +74,9 @@ package org.osas3cf.core
 		
 		private function addClient(clientVO:ClientVO):void
 		{
-			CONFIG::debug{Debug.out(name + " adding client " + clientVO.cilent.name, this);}
-			clients.push(clientVO.cilent);
-			clientVO.cilent.addBroadcaster(this, clientVO);
+			CONFIG::debug{Debug.out(name + " adding client " + clientVO.client.name, this);}
+			clients.push(clientVO.client);
+			clientVO.client.addBroadcaster(this, clientVO);
 		}
 		
 		private function removeClient(name:String):void
