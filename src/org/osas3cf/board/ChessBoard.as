@@ -28,7 +28,10 @@ package org.osas3cf.board
 				case MetaData.CLIENT_ADDED:
 					var clientVO:ClientVO = metaData.data as ClientVO;
 					if(clientVO.client is ChessBoard)
-						setUp(clientVO.params['piecesSetup']);
+					{
+						var pieces:Array = clientVO.params.hasOwnProperty("setup") ? clientVO.params['setup'] : null;
+						setUp(pieces);
+					}
 					break;	
 				case MetaData.CLEAN_UP:
 					cleanUp();
