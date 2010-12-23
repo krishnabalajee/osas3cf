@@ -31,7 +31,7 @@ package org.osas3cf.core.data
 		public function ClientVO(client:IClient, params:Object = null)
 		{
 			_client = client;
-			_params = params;
+			_params = params ? params : {};
 		}
 		
 		public function get client():IClient	{return _client;}
