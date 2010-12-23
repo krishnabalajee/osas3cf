@@ -51,6 +51,7 @@ package org.osas3cf.validation.rules.chess
 				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
 				var attack:Array = findAttacks(square, color, bitBoards);
 				var move:Array = findMoves(square, color, bitBoards);
+				move = BitOper.or(move, attack);
 				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], move) : move;
@@ -62,15 +63,23 @@ package org.osas3cf.validation.rules.chess
 			var attack:BitBoard = new BitBoard();
 			var oppositeColor:String = (color == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
 			var validSquares:Array = bitBoards[oppositeColor + BitBoardTypes.S];
+
 			var start:Point = BoardUtil.squareToArrayNote(square);
 			var up:int = (color == ChessPieces.WHITE) ? 1 : -1;
-			//up left
-			attack[start.x + up][start.y - 1] = validSquares[start.x + up][start.y - 1];
-			//up right
-			attack[start.x + up][start.y + 1] = validSquares[start.x + up][start.y + 1];
+			
+			if(start.x + up >= 0 && start.x + up <= 7)
+			{
+				//up left
+				if(start.y - 1 >= 0)
+					attack[start.x + up][start.y - 1] = validSquares[start.x + up][start.y - 1];
+				//up right
+				if(start.y + 1 <= 7)
+					attack[start.x + up][start.y + 1] = validSquares[start.x + up][start.y + 1];			
+			}
+
 			
 			//TODO: Add in en passant rule
-			
+
 			return attack;			
 		}
 		
@@ -82,11 +91,15 @@ package org.osas3cf.validation.rules.chess
 			var start:Point = BoardUtil.squareToArrayNote(square);
 			var up:int = (color == ChessPieces.WHITE) ? 1 : -1;
 			
-			//up 1
-			move[start.x + up][start.y] = validSquares[start.x + up][start.y];
-			//up 2
-			if((color == ChessPieces.WHITE && square.charAt(1) == "2") || (color == ChessPieces.BLACK && square.charAt(1) == "7"))
-				move[start.x + up*2][start.y] = validSquares[start.x + up][start.y];
+			if(start.x + up >= 0 && start.x + up <= 7)
+			{
+				//up 1
+				move[start.x + up][start.y] = validSquares[start.x + up][start.y];
+				//up 2
+				if((color == ChessPieces.WHITE && square.charAt(1) == "2") || (color == ChessPieces.BLACK && square.charAt(1) == "7"))
+					move[start.x + up*2][start.y] = validSquares[start.x + up][start.y];			
+			}
+
 			return move;			
 		}
 		
