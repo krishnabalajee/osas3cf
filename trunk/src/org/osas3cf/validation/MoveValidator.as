@@ -49,9 +49,17 @@ package org.osas3cf.validation
 				case MoveMetaData.SUBMIT_MOVE:
 					move = metaData.data as MoveVO;
 					currentColor = move.piece.indexOf(ChessPieces.WHITE) != -1 ? ChessPieces.WHITE : ChessPieces.BLACK;
+					
 					//Invalid if new square is not in move bitboard
-					if(!BoardUtil.isTrue(move.newSquare, bitBoards[move.currentSquare + BitBoardTypes.MOVE]))
+					if(!bitBoards[move.currentSquare + BitBoardTypes.MOVE] || !BoardUtil.isTrue(move.newSquare, bitBoards[move.currentSquare + BitBoardTypes.MOVE]))
 					{
+						CONFIG::debug
+						{
+							if(!bitBoards[move.currentSquare + BitBoardTypes.MOVE])
+								Debug.out("Invalid move, piece not on the original square",this);
+							else
+								Debug.out("Invalid move, move does not follow piece move",this);
+						}
 						sendMetaData(new MoveMetaData(MoveMetaData.INVALID_MOVE, move));
 						return;
 					}
@@ -72,6 +80,7 @@ package org.osas3cf.validation
 					var kingSquare:String = BoardUtil.getTrueSquares(BitOper.and(bitBoards[currentColor + BitBoardTypes.S], bitBoards[ChessPieces.KING + BitBoardTypes.S]))[0];
 					if(BoardUtil.isTrue(kingSquare, bitBoards[oppositeColor + BitBoardTypes.ATTACK]))
 					{
+						CONFIG::debug{Debug.out("Invalid move, putting own king in check!",this);}
 						sendMetaData(new MoveMetaData(MoveMetaData.INVALID_MOVE, move));
 						return;
 					}

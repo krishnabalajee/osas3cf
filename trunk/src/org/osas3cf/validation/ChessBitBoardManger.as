@@ -46,7 +46,6 @@ package org.osas3cf.validation
 					var state:StateVO = metaData.data as StateVO;
 					if(state.type == BoardState.PIECES)
 					{
-						Debug.out(state.newState);
 						bitBoards = generator.execute(state.newState as BitBoard);
 						sendMetaData(new BitBoardMetaData(BitBoardMetaData.UPDATED, bitBoards));
 					}

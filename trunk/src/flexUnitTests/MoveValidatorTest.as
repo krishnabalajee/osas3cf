@@ -23,7 +23,6 @@ package flexUnitTests
 		private var debugger:DebugClient;
 		private var moveValidator:MoveValidator;
 		private var broadcaster:Broadcaster
-
 		
 		protected var pD4:Array = [
 			[1,1,1,1,1,1,1,1], //1
@@ -87,5 +86,27 @@ package flexUnitTests
 			Assert.assertEquals(moveMetaData.data["piece"], ChessPieces.WHITE + ChessPieces.PAWN);
 		}
 		
+		[Test]
+		public function testNoPieceOnSquare():void
+		{
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(emptyBoard))));
+			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.PAWN, Square.D2, Square.E1)));
+			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
+			Assert.assertNotNull(moveMetaData);
+			Assert.assertTrue(moveMetaData.data is MoveVO);
+			Assert.assertEquals(moveMetaData.data["piece"], ChessPieces.WHITE + ChessPieces.PAWN);
+		}
+
+		[Test]
+		public function testPutOwnKingInCheck():void
+		{
+			Debug.traceBitBoard(putKingInCheck);
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(putKingInCheck))));
+			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.B4, Square.D4)));
+			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
+			Assert.assertNotNull(moveMetaData);
+			Assert.assertTrue(moveMetaData.data is MoveVO);
+			Assert.assertEquals(moveMetaData.data["piece"], ChessPieces.WHITE + ChessPieces.ROOK);
+		}
 	}
 }
