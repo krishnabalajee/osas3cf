@@ -34,7 +34,6 @@ package org.osas3cf.validation
 		
 		public function BitBoardGen(ruleSets:Array, colors:Array)
 		{
-			Debug.out("BitBoardGen Created", this);
 			this.ruleSets = ruleSets;
 			this.colors = colors;
 		}
@@ -68,7 +67,6 @@ package org.osas3cf.validation
 				if(ruleSets[index] is IPieceRule)
 				{
 					var rule:IPieceRule = ruleSets[index] as IPieceRule;
-					CONFIG::debug{Debug.out("Finding " + rule.name + " moves",this);}
 					rule.execute(bitBoards);
 				}
 			}

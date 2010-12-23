@@ -10,16 +10,16 @@ package flexUnitTests
 	public class CoreTest
 	{		
 		private var client:Client;
-		private var sampleClient:DebugClient;
+		private var debugClient:DebugClient;
 		private var broadcaster:Broadcaster;
 		
 		[Before]
 		public function setUp():void
 		{
 			client = new Client();
-			sampleClient = new DebugClient();
+			debugClient = new DebugClient();
 			broadcaster = new Broadcaster();
-			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(sampleClient)));
+			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(debugClient)));
 		}
 		
 		[After]
@@ -27,14 +27,16 @@ package flexUnitTests
 		{
 			broadcaster.addMetaData(new MetaData(MetaData.CLEAN_UP));
 			client = null;
-			sampleClient = null;
+			debugClient = null;
 			broadcaster = null;
 		}
 		
 		[Test]
 		public function testAddBroadcaster():void
 		{
-			Assert.assertNotNull(sampleClient.getMetaDataType(MetaData.CLIENT_ADDED));
+			Assert.assertNotNull(debugClient.getMetaDataType(MetaData.CLIENT_ADDED));
+			var name:String = debugClient.getMetaDataType(MetaData.CLIENT_ADDED).data.client.name;
+			Assert.assertEquals(name, DebugClient.NAME);
 		}
 		
 		[Test]
@@ -43,7 +45,7 @@ package flexUnitTests
 			try{
 				client.name;
 			}catch(error:Error){
-				Assert.assertTrue(true);
+				Assert.assertTrue("Client threw expected error");
 				return
 			}
 			Assert.fail("Client did not throw error");
@@ -53,32 +55,26 @@ package flexUnitTests
 		public function testOnMetaData():void
 		{
 			broadcaster.addMetaData(new MetaData("TestMetaData"));
-			Assert.assertNotNull(sampleClient.getMetaDataType("TestMetaData"));
+			Assert.assertNotNull(debugClient.getMetaDataType("TestMetaData"));
 		}
 		
 		[Test]
 		public function testRemoveBroadcaster():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.REMOVE_CLIENT, sampleClient.name));
-			Assert.assertNotNull(sampleClient.getMetaDataType(MetaData.REMOVE_CLIENT));
-			Assert.assertNotNull(sampleClient.getMetaDataType(MetaData.CLIENT_REMOVED));
+			broadcaster.addMetaData(new MetaData(MetaData.REMOVE_CLIENT, debugClient.name));
+			Assert.assertNotNull(debugClient.getMetaDataType(MetaData.REMOVE_CLIENT));
+			Assert.assertNotNull(debugClient.getMetaDataType(MetaData.CLIENT_REMOVED));
 			broadcaster.addMetaData(new MetaData("TestMetaData"));
-			Assert.assertNull(sampleClient.getMetaDataType("TestMetaData"));
-			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(sampleClient)));
 		}
 		
 		[Test]
 		public function testCleanUp():void
 		{
 			broadcaster.addMetaData(new MetaData(MetaData.CLEAN_UP));
-			Assert.assertNotNull(sampleClient.getMetaDataType(MetaData.CLEAN_UP));
-			Assert.assertNotNull(sampleClient.getMetaDataType(MetaData.REMOVE_CLIENT));
+			Assert.assertNotNull(debugClient.getMetaDataType(MetaData.CLEAN_UP));
+			Assert.assertNotNull(debugClient.getMetaDataType(MetaData.REMOVE_CLIENT));
 			broadcaster.addMetaData(new MetaData("TestMetaData"));
-			Assert.assertNull(sampleClient.getMetaDataType("TestMetaData"));
-
-			sampleClient = new DebugClient();
-			broadcaster = new Broadcaster();
-			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(sampleClient)));
+			Assert.assertNull(debugClient.getMetaDataType("TestMetaData"));
 		}		
 	}
 }

@@ -44,7 +44,16 @@ package flexUnitTests
 			
 			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(debugger)));
 			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(moveValidator)));
-		}		
+		}
+		
+		[After]
+		public function tearDown():void
+		{
+			broadcaster.addMetaData(new MetaData(MetaData.CLEAN_UP));
+			broadcaster = null;
+			debugger = null;
+			moveValidator = null;
+		}
 		
 		[Test]
 		public function testSetup():void
@@ -100,7 +109,6 @@ package flexUnitTests
 		[Test]
 		public function testPutOwnKingInCheck():void
 		{
-			Debug.traceBitBoard(putKingInCheck);
 			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(putKingInCheck))));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.B4, Square.D4)));
 			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
