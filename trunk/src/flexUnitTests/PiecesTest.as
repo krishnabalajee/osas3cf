@@ -27,6 +27,7 @@ package flexUnitTests
 			broadcaster = new Broadcaster("TestBroadCaster");
 			debugClient = new DebugClient();
 			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(debugClient)));
+			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new Pieces(), {row:8, column:8})));
 		}
 		
 		[After]
@@ -35,23 +36,11 @@ package flexUnitTests
 			broadcaster.addMetaData(new MetaData(MetaData.CLEAN_UP));
 			debugClient = null;
 			broadcaster = null;
-		}
-		
-		[BeforeClass]
-		public static function setUpBeforeClass():void
-		{
-		}
-		
-		[AfterClass]
-		public static function tearDownAfterClass():void
-		{
 		}		
 		
 		[Test]
 		public function testMovingPiece():void
 		{
-			debugClient.reset();
-			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new Pieces(), {row:8, column:8})));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO("TestPiece", Square.A1, Square.A8)));
 			var result:MetaData = debugClient.getMetaDataType(MetaData.STATE_CHANGE);
 			Assert.assertNotNull(result);
@@ -69,8 +58,6 @@ package flexUnitTests
 		[Test]
 		public function testPromotePiece():void
 		{
-			debugClient.reset();
-			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new Pieces(), {row:8, column:8})));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.PROMOTE_PIECE, new MoveVO("Queen", Square.C3)));
 			var result:MetaData = debugClient.getMetaDataType(MetaData.STATE_CHANGE);
 			Assert.assertNotNull(result);
@@ -88,8 +75,6 @@ package flexUnitTests
 		[Test]
 		public function testCapturingPiece():void
 		{
-			debugClient.reset();
-			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new Pieces(), {row:8, column:8})));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.CAPTURE_PIECE, new MoveVO("TestPiece",Square.A8)));
 			var result:MetaData = debugClient.getMetaDataType(MetaData.STATE_CHANGE);
 			Assert.assertNotNull(result);

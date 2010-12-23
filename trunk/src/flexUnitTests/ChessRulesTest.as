@@ -17,14 +17,12 @@ package flexUnitTests
 
 	public class ChessRulesTest extends TestingBitBoards
 	{			
-		private var rules:Array;
-		private var colors:Array;
 		private var moveGen:BitBoardGen;
 		
 		[Before]
 		public function setUp():void
 		{
-			rules = [];
+			var rules:Array = [];
 			rules.push(new PawnRule());
 			rules.push(new KnightRule());
 			rules.push(new Diagonals());
@@ -32,13 +30,14 @@ package flexUnitTests
 			rules.push(new QueenRule());
 			rules.push(new KingRule()); //King must always be last
 			
-			colors = ["White","Black"];
+			var colors:Array = ["White","Black"];
 			moveGen = new BitBoardGen(rules, colors);
 		}
 		
 		[After]
 		public function tearDown():void
 		{
+			moveGen = null;
 		}
 		
 		[Test]
