@@ -37,6 +37,6 @@ package org.osas3cf.data
 		public function get piece():String			{return _piece;}
 		public function get currentSquare():String	{return _currentSquare;}
 		public function get newSquare():String		{return _newSquare;}
-		public function toString():String			{return "SquareVO {piece: "+piece+", currentSquare: "+currentSquare+",  newSquare: "+newSquare+"}";}
+		public function toString():String			{return "MoveVO {piece: "+piece+", currentSquare: "+currentSquare+",  newSquare: "+newSquare+"}";}
 	}
 }
