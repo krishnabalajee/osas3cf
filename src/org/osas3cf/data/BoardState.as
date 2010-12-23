@@ -25,12 +25,18 @@ package org.osas3cf.data
 	
 	public class BoardState extends StateVO
 	{
-		public static const PIECES:String = "PiecesBoardState";
-		public static const CAPTURED_PIECES:String = "CapturedPiecesBoardState";
+		public static const PIECES:String = "PiecesState";
+		public static const CAPTURED_PIECES:String = "CapturedPiecesState";
+		public static const BITBOARDS:String = "BitBoardsState";
 		
-		public function BoardState(type:String, oldState:Object, newState:Object)
+		public function BoardState(type:String, oldState:Array, newState:Array)
 		{
 			super(type, oldState, newState);
+		}
+		
+		override public function toString():String
+		{
+			return "BoardState {type: "+type+", newState: "+newState+", oldState: "+oldState+"}";
 		}
 	}
 }

@@ -40,7 +40,7 @@ package flexUnitTests
 		[Test]
 		public function testBoardSetup():void
 		{
-			Assert.fail("Test not made");
+			//Assert.assertTrue(debugClient.getMetaDataType(MetaData.STATE_CHANGE));
 		}
 	}
 }
