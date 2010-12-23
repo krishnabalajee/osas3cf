@@ -68,9 +68,6 @@ package org.osas3cf.board
 					if(clientVO.client is ChessPieces)
 						setupPieces(clientVO.params['setup']);
 				break;
-				default:
-					
-					break;
 			}
 		}
 		

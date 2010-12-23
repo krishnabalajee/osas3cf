@@ -34,6 +34,7 @@ package org.osas3cf.validation
 		
 		public function BitBoardGen(ruleSets:Array, colors:Array)
 		{
+			Debug.out("BitBoardGen Created", this);
 			this.ruleSets = ruleSets;
 			this.colors = colors;
 		}
