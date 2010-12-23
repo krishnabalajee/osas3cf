@@ -18,7 +18,7 @@ package flexUnitTests
 	import org.osas3cf.validation.ChessBitBoardManger;
 	import org.osas3cf.validation.MoveValidator;
 
-	public class MoveValidatorTest extends BoardTests
+	public class MoveValidatorTest extends TestingBitBoards
 	{		
 		private var debugger:DebugClient;
 		private var moveValidator:MoveValidator;
