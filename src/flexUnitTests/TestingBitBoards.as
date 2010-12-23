@@ -2,21 +2,21 @@ package flexUnitTests
 {
 	import org.osas3cf.board.ChessPieces;
 
-	public class BoardTests
+	public class TestingBitBoards
 	{
-		protected var k:String = ChessPieces.WHITE + ChessPieces.KING;
-		protected var q:String = ChessPieces.WHITE + ChessPieces.QUEEN;
-		protected var r:String = ChessPieces.WHITE + ChessPieces.ROOK;
-		protected var b:String = ChessPieces.WHITE + ChessPieces.BISHOP;
-		protected var n:String = ChessPieces.WHITE + ChessPieces.KNIGHT;
-		protected var p:String = ChessPieces.WHITE + ChessPieces.PAWN;
+		private var k:String = ChessPieces.WHITE + ChessPieces.KING;
+		private var q:String = ChessPieces.WHITE + ChessPieces.QUEEN;
+		private var r:String = ChessPieces.WHITE + ChessPieces.ROOK;
+		private var b:String = ChessPieces.WHITE + ChessPieces.BISHOP;
+		private var n:String = ChessPieces.WHITE + ChessPieces.KNIGHT;
+		private var p:String = ChessPieces.WHITE + ChessPieces.PAWN;
 		
-		protected var K:String = ChessPieces.BLACK + ChessPieces.KING;
-		protected var Q:String = ChessPieces.BLACK + ChessPieces.QUEEN;
-		protected var R:String = ChessPieces.BLACK + ChessPieces.ROOK;
-		protected var B:String = ChessPieces.BLACK + ChessPieces.BISHOP;
-		protected var N:String = ChessPieces.BLACK + ChessPieces.KNIGHT;
-		protected var P:String = ChessPieces.BLACK + ChessPieces.PAWN;
+		private var K:String = ChessPieces.BLACK + ChessPieces.KING;
+		private var Q:String = ChessPieces.BLACK + ChessPieces.QUEEN;
+		private var R:String = ChessPieces.BLACK + ChessPieces.ROOK;
+		private var B:String = ChessPieces.BLACK + ChessPieces.BISHOP;
+		private var N:String = ChessPieces.BLACK + ChessPieces.KNIGHT;
+		private var P:String = ChessPieces.BLACK + ChessPieces.PAWN;
 		
 		protected var emptyBoard:Array = [
 			[0,0,0,0,0,0,0,0], //1
@@ -205,6 +205,6 @@ package flexUnitTests
 			[0,0,0,0,0,0,0,0]];//8
 		  // A B C D E F G H
 		
-		public function BoardTests(){}
+		public function TestingBitBoards(){}
 	}
 }

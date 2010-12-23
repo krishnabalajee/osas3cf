@@ -15,7 +15,7 @@ package flexUnitTests
 	import org.osas3cf.validation.rules.chess.PawnRule;
 	import org.osas3cf.validation.rules.chess.QueenRule;
 
-	public class ChessRulesTest extends BoardTests
+	public class ChessRulesTest extends TestingBitBoards
 	{			
 		private var rules:Array;
 		private var colors:Array;
