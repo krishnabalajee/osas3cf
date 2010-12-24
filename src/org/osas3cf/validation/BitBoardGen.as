@@ -64,11 +64,7 @@ package org.osas3cf.validation
 			//Update attack and move boards
 			for(var index:String in ruleSets)
 			{
-				if(ruleSets[index] is IPieceRule)
-				{
-					var rule:IPieceRule = ruleSets[index] as IPieceRule;
-					rule.execute(bitBoards);
-				}
+				IPieceRule(ruleSets[index]).execute(bitBoards);
 			}
 		}
 	}
