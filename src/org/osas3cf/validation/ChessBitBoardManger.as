@@ -39,6 +39,7 @@ package org.osas3cf.validation
 		public static const NAME:String = "ChessBitBoardManager";
 		
 		private var bitBoards:Array = [];
+		private var evaluatedBoards:Array;
 		private var generator:BitBoardGen;
 		
 		public function ChessBitBoardManger(){}
@@ -67,12 +68,15 @@ package org.osas3cf.validation
 					var state:StateVO = metaData.data as StateVO;
 					if(state.type == BoardState.PIECES)
 					{
-						bitBoards = generator.execute(state.newState as BitBoard);
+						if(evaluatedBoards && state.newState.toString() == evaluatedBoards[BitBoardTypes.BOARD].toString())
+							bitBoards = evaluatedBoards;
+						else
+							bitBoards = generator.execute(state.newState as BitBoard);
 						sendMetaData(new BitBoardMetaData(BitBoardMetaData.UPDATED, bitBoards));
 					}
 					break;
 				case BitBoardMetaData.EVALUATE:
-					var evaluatedBoards:Array = generator.execute(metaData.data as BitBoard);
+					evaluatedBoards = generator.execute(metaData.data as BitBoard);
 					sendMetaData(new BitBoardMetaData(BitBoardMetaData.EVALUATED, evaluatedBoards));
 					break;
 				case MetaData.CLEAN_UP:
