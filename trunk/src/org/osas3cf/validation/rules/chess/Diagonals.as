@@ -45,11 +45,11 @@ package org.osas3cf.validation.rules.chess
 		{
 			var squares:Array = BoardUtil.getTrueSquares(bitBoards[_name + BitBoardTypes.S]);
 			var color:String;
-			
+			var attack:Array;
 			for each(var square:String in squares)
 			{
 				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
-				var attack:Array = findAttacks(square, color, bitBoards);
+				attack = findAttacks(square, color, bitBoards);
 				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], attack) : attack;
@@ -62,7 +62,6 @@ package org.osas3cf.validation.rules.chess
 			var oppositeColor:String = (color == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
 			var validSquares:Array = BitOper.or(bitBoards[oppositeColor + BitBoardTypes.S], BitOper.not(bitBoards[BitBoardTypes.BOARD]));
 			var start:Point = BoardUtil.squareToArrayNote(square);
-			
 			//Go left and up
 			var i:int = 0;
 			var j:int = start.x + 1;

@@ -45,11 +45,11 @@ package org.osas3cf.validation.rules.chess
 		{
 			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + BitBoardTypes.S]);
 			var color:String;
-			
+			var attack:Array;
 			for each(var square:String in squares)
 			{
 				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
-				var attack:Array = findAttacks(square, color, bitBoards);
+				attack = findAttacks(square, color, bitBoards);
 				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
 				var move:Array = findMoves(square, color, bitBoards);
