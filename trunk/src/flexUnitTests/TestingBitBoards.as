@@ -41,8 +41,8 @@ package flexUnitTests
 		  // A B C D E F G H
 		
 		protected var initalResults:Array = [
-			[0,0,0,0,0,0,0,0], //1
-			[0,0,0,0,0,0,0,0], //2
+			[0,1,1,1,1,1,1,0], //1
+			[1,1,1,1,1,1,1,1], //2
 			[1,1,1,1,1,1,1,1], //3
 			[0,0,0,0,0,0,0,0], //4
 			[0,0,0,0,0,0,0,0], //5
@@ -62,7 +62,7 @@ package flexUnitTests
 			[0,0,0,0,0,0,0,0]];//8
 		  // A B C D E F G H
 		
-		protected var rookResults:Array = [
+		protected var rookMoves:Array = [
 			[0,0,0,0,0,0,0,0], //1
 			[0,0,0,0,0,0,0,0], //2
 			[0,0,0,1,0,0,0,0], //3
@@ -71,7 +71,18 @@ package flexUnitTests
 			[0,0,0,1,0,0,0,0], //6
 			[0,0,0,1,0,0,0,0], //7
 			[0,0,0,1,0,0,0,0]];//8
-		// A B C D E F G H
+		  // A B C D E F G H
+	
+		protected var rookAttacks:Array = [
+			[0,0,0,0,0,0,0,0], //1
+			[0,0,0,1,0,0,0,0], //2
+			[0,0,0,1,0,0,0,0], //3
+			[0,0,0,1,0,0,0,0], //4
+			[1,1,1,0,1,1,1,0], //5
+			[0,0,0,1,0,0,0,0], //6
+			[0,0,0,1,0,0,0,0], //7
+			[0,0,0,1,0,0,0,0]];//8
+		  // A B C D E F G H		
 		
 		protected var bishopBoard:Array =[
 			[0,0,0,k,0,0,0,0], //1
@@ -84,7 +95,7 @@ package flexUnitTests
 			[r,0,0,0,0,0,0,b]];//8
 		  // A B C D E F G H
 		
-		protected var bishopResults:Array =[
+		protected var bishopMoves:Array =[
 			[0,0,0,0,0,0,0,1], //1
 			[0,0,0,0,0,0,1,0], //2
 			[0,1,0,0,0,1,0,0], //3
@@ -93,7 +104,18 @@ package flexUnitTests
 			[0,0,1,0,1,0,0,0], //6
 			[0,1,0,0,0,0,0,0], //7
 			[1,0,0,0,0,0,0,0]];//8
-		  // A B C D E F G H		
+		  // A B C D E F G H
+		
+		protected var bishopAttacks:Array =[
+			[0,0,0,0,0,0,0,1], //1
+			[1,0,0,0,0,0,1,0], //2
+			[0,1,0,0,0,1,0,0], //3
+			[0,0,1,0,1,0,0,0], //4
+			[0,0,0,0,0,0,0,0], //5
+			[0,0,1,0,1,0,0,0], //6
+			[0,1,0,0,0,0,0,0], //7
+			[1,0,0,0,0,0,0,0]];//8
+		  // A B C D E F G H	
 		
 		protected var queenBoard:Array = [
 			[0,0,0,0,0,0,0,0], //1
@@ -106,7 +128,7 @@ package flexUnitTests
 			[0,0,0,0,Q,0,0,0]];//8
 		  // A B C D E F G H
 		
-		protected var queenResults:Array = [
+		protected var queenMoves:Array = [
 			[0,0,0,0,0,0,0,1], //1
 			[1,0,0,1,0,0,1,0], //2
 			[0,1,0,1,0,1,0,0], //3
@@ -116,6 +138,17 @@ package flexUnitTests
 			[0,1,0,1,0,1,0,0], //7
 			[1,0,0,1,0,0,1,0]];//8
 		  // A B C D E F G H		
+
+		protected var queenAttacks:Array = [
+			[0,0,0,0,0,0,0,1], //1
+			[1,0,0,1,0,0,1,0], //2
+			[0,1,0,1,0,1,0,0], //3
+			[0,0,1,1,1,0,0,0], //4
+			[1,1,1,0,1,1,1,0], //5
+			[0,0,1,1,1,0,0,0], //6
+			[0,1,0,1,0,1,0,0], //7
+			[1,0,0,1,0,0,1,0]];//8
+		  // A B C D E F G H			
 		
 		protected var knightBoard:Array = [
 			[N,0,0,0,0,0,0,n], //1
@@ -128,7 +161,7 @@ package flexUnitTests
 			[N,0,0,0,0,0,0,n]];//8
 		  // A B C D E F G H
 		
-		protected var knigthResults:Array = [
+		protected var knightMoves:Array = [
 			[0,0,0,0,0,0,0,0], //1
 			[0,0,0,0,0,0,0,0], //2
 			[0,0,1,0,1,0,0,0], //3
@@ -137,7 +170,18 @@ package flexUnitTests
 			[0,1,0,0,0,1,0,0], //6
 			[0,0,0,0,1,0,0,0], //7
 			[0,0,0,0,0,0,0,0]];//8
-		  // A B C D E F G H	
+		  // A B C D E F G H
+		
+		protected var knightAttacks:Array = [
+			[0,0,0,0,0,0,0,0], //1
+			[0,0,0,0,0,0,0,0], //2
+			[0,0,1,0,1,0,0,0], //3
+			[0,1,0,0,0,1,0,0], //4
+			[0,0,0,0,0,0,0,0], //5
+			[0,1,0,0,0,1,0,0], //6
+			[0,0,1,0,1,0,0,0], //7
+			[0,0,0,0,0,0,0,0]];//8
+		  // A B C D E F G H
 		
 		protected var pawnBoard:Array = [
 			[0,0,0,0,0,0,0,0], //1
@@ -150,7 +194,7 @@ package flexUnitTests
 			[0,0,0,0,0,0,0,0]];//8
 		  // A B C D E F G H
 		
-		protected var pawnResults:Array = [
+		protected var pawnMoves:Array = [
 			[0,0,0,0,0,0,0,0], //1
 			[0,0,0,0,0,0,0,0], //2
 			[0,0,0,0,0,0,0,0], //3
@@ -161,7 +205,7 @@ package flexUnitTests
 			[0,0,0,0,0,0,0,0]];//8
 		  // A B C D E F G H
 		
-		protected var pawnResults2:Array = [
+		protected var pawnAttacks:Array = [
 			[0,0,0,0,0,0,0,0], //1
 			[0,0,0,0,0,0,0,0], //2
 			[0,0,0,0,0,0,0,0], //3
@@ -174,16 +218,27 @@ package flexUnitTests
 		
 		protected var kingBoard:Array = [
 			[0,0,0,0,0,0,0,0], //1
-			[0,0,0,0,0,0,0,0], //2
+			[0,p,0,0,0,0,0,0], //2
 			[0,0,k,0,0,0,0,0], //3
 			[0,0,0,0,0,0,0,0], //4
 			[0,0,K,0,0,0,0,0], //5
-			[0,0,0,0,0,0,0,0], //6
+			[0,P,0,0,0,0,0,0], //6
 			[0,0,0,0,0,0,0,0], //7
 			[0,0,0,r,0,0,0,0]];//8
 		  // A B C D E F G H
 		
-		protected var kingResults:Array = [
+		protected var kingMoves:Array = [
+			[0,0,0,0,0,0,0,0], //1
+			[0,0,0,0,0,0,0,0], //2
+			[0,0,0,0,0,0,0,0], //3
+			[0,0,0,0,0,0,0,0], //4
+			[0,1,0,0,0,0,0,0], //5
+			[0,0,1,0,0,0,0,0], //6
+			[0,0,0,0,0,0,0,0], //7
+			[0,0,0,0,0,0,0,0]];//8
+		  // A B C D E F G H
+		
+		protected var kingAttacks:Array = [
 			[0,0,0,0,0,0,0,0], //1
 			[0,0,0,0,0,0,0,0], //2
 			[0,0,0,0,0,0,0,0], //3
@@ -192,7 +247,7 @@ package flexUnitTests
 			[0,1,1,0,0,0,0,0], //6
 			[0,0,0,0,0,0,0,0], //7
 			[0,0,0,0,0,0,0,0]];//8
-		  // A B C D E F G H
+		  // A B C D E F G H		
 		
 		protected var putKingInCheck:Array = [
 			[0,0,0,0,0,0,0,0], //1
@@ -215,6 +270,8 @@ package flexUnitTests
 			[0,Q,0,0,0,0,0,0], //7
 			[0,0,0,0,0,0,0,0]];//8
 		  // A B C D E F G H
+		
+		
 		
 		public function TestingBitBoards(){}
 	}

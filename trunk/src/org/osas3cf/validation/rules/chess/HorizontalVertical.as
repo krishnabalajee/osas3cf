@@ -45,65 +45,77 @@ package org.osas3cf.validation.rules.chess
 		{
 			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + BitBoardTypes.S]);
 			var color:String;
-			var attack:Array;
+			var attacks:Object;
+			var move:Array;
 			for each(var square:String in squares)
 			{
 				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
-				attack = findAttacks(square, color, bitBoards);
-				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
-				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
-				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], attack) : attack;
+				attacks = findAttacks(square, color, bitBoards);
+				move = BitOper.and(attacks.piece, BitOper.not(BitOper.and(attacks.piece, bitBoards[color + BitBoardTypes.S])));
+				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attacks.piece) : attacks.piece;
+				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attacks.piece) : attacks.piece;
+				bitBoards[color  + BitBoardTypes.XRAY] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attacks.xray) : attacks.xray;
+				bitBoards[square + BitBoardTypes.XRAY] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attacks.xray) : attacks.xray;
+				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], move) : move;
+				bitBoards[color + BitBoardTypes.MOVE] = bitBoards[color + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[color + BitBoardTypes.MOVE], move) : move;
 			}
 		}
 		
-		private function findAttacks(square:String, color:String, bitBoards:Array):Array
+		private function findAttacks(square:String, color:String, bitBoards:Array):Object
 		{
 			var attack:BitBoard = new BitBoard();
-			var oppositeColor:String = (color == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
-			var validSquares:Array = BitOper.or(bitBoards[oppositeColor + BitBoardTypes.S], BitOper.not(bitBoards[BitBoardTypes.BOARD]));
+			var xray:BitBoard = new BitBoard();
 			var start:Point = BoardUtil.squareToArrayNote(square);
 			//Go left
 			var i:int = 0;
+			var stop:Boolean;
 			for(i = start.y - 1; i >= 0; i--)
 			{
-				if(validSquares[start.x][i] != Pieces.EMPTY_SQUARE){
+				if(!stop){
 					attack[start.x][i] = 1;
-					if(bitBoards[oppositeColor + BitBoardTypes.S][start.x][i] == 1) break;
+					if(bitBoards[BitBoardTypes.ALL_PIECES][start.x][i]) 
+						stop = true;
 				}else{
-					break;
+					stop = true;
 				}
+				xray[start.x][i] = 1;
 			}
+			stop = false;
 			//Go right
 			for(i = start.y + 1; i < 8; i++)
 			{
-				if(validSquares[start.x][i] != Pieces.EMPTY_SQUARE){
+				if(!stop){
 					attack[start.x][i] = 1;
-					if(bitBoards[oppositeColor + BitBoardTypes.S][start.x][i] == 1) break;
-				}else{
-					break;
+					if(bitBoards[BitBoardTypes.ALL_PIECES][start.x][i])
+						stop = true;
 				}
-			}			
+				xray[start.x][i] = 1;
+			}
+			stop = false;
 			//Go up
 			for(i = start.x + 1; i < 8; i++)
 			{
-				if(validSquares[i][start.y] != Pieces.EMPTY_SQUARE){
+				if(!stop){
 					attack[i][start.y] = 1;
-					if(bitBoards[oppositeColor + BitBoardTypes.S][i][start.y] == 1) break;
-				}else{
-					break;
+					if(bitBoards[BitBoardTypes.ALL_PIECES][i][start.y])
+						stop = true;
 				}
-			}			
+				xray[i][start.y] = 1;
+			}
+			stop = false;
 			//Go down
 			for(i = start.x - 1; i >= 0; i--)
 			{
-				if(validSquares[i][start.y] != Pieces.EMPTY_SQUARE){
+				if(!stop){
 					attack[i][start.y] = 1;
-					if(bitBoards[oppositeColor + BitBoardTypes.S][i][start.y] == 1) break;
+					if(bitBoards[BitBoardTypes.ALL_PIECES][i][start.y])
+						stop = true;
 				}else{
-					break;
+					stop = true;
 				}
+				xray[i][start.y] = 1;
 			}
-			return attack;
+			return {piece:attack, xray:xray};
 		}
 		
 		public function get name():String

@@ -33,9 +33,11 @@ package org.osas3cf.data
 		
 		public static const ALL_WHITE:String = "Whites";
 		public static const ALL_BLACK:String = "Blacks";
+		public static const ALL_PIECES:String = "AllPieces";
 		
 		public static const ATTACK:String = "Attack";
 		public static const MOVE:String = "Move";
+		public static const XRAY:String = "Xray";
 		
 		public static const S:String = "s";
 		

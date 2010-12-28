@@ -47,7 +47,8 @@ package flexUnitTests
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results["D5Attack"]);
 			Assert.assertNotNull(results["D5Move"]);
-			Assert.assertEquals(bishopResults.toString(), results["D5Attack"].toString());
+			Assert.assertEquals(bishopAttacks.toString(), results["D5Attack"].toString());
+			Assert.assertEquals(bishopMoves.toString(), results["D5Move"].toString());
 		}
 		
 		[Test]
@@ -57,8 +58,8 @@ package flexUnitTests
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results["D5Attack"]);
 			Assert.assertNotNull(results["D5Move"]);
-			Assert.assertEquals(rookResults.toString(), results["D5Move"].toString());
-			Assert.assertEquals(rookResults.toString(), results["D5Attack"].toString());
+			Assert.assertEquals(rookMoves.toString(), results["D5Move"].toString());
+			Assert.assertEquals(rookAttacks.toString(), results["D5Attack"].toString());
 		}
 		
 		[Test]
@@ -68,8 +69,8 @@ package flexUnitTests
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results["D5Attack"]);
 			Assert.assertNotNull(results["D5Move"]);
-			Assert.assertEquals(queenResults.toString(), results["D5Move"].toString());
-			Assert.assertEquals(queenResults.toString(), results["D5Attack"].toString());
+			Assert.assertEquals(queenMoves.toString(), results["D5Move"].toString());
+			Assert.assertEquals(queenAttacks.toString(), results["D5Attack"].toString());
 		}
 		
 		[Test]
@@ -79,8 +80,8 @@ package flexUnitTests
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results["D5Attack"]);
 			Assert.assertNotNull(results["D5Move"]);
-			Assert.assertEquals(knigthResults.toString(), results["D5Move"].toString());
-			Assert.assertEquals(knigthResults.toString(), results["D5Attack"].toString());
+			Assert.assertEquals(knightMoves.toString(), results["D5Move"].toString());
+			Assert.assertEquals(knightAttacks.toString(), results["D5Attack"].toString());
 		}
 		
 		[Test]
@@ -90,8 +91,8 @@ package flexUnitTests
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results["D7Attack"]);
 			Assert.assertNotNull(results["D7Move"]);
-			Assert.assertEquals(pawnResults2.toString(), results["D7Attack"].toString());
-			Assert.assertEquals(pawnResults.toString(),  results["D7Move"].toString());
+			Assert.assertEquals(pawnAttacks.toString(), results["D7Attack"].toString());
+			Assert.assertEquals(pawnMoves.toString(),  results["D7Move"].toString());
 		}
 		
 		[Test]
@@ -101,8 +102,8 @@ package flexUnitTests
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results["C5Attack"]);
 			Assert.assertNotNull(results["C5Move"]);
-			Assert.assertEquals(kingResults.toString(), results["C5Move"].toString());
-			Assert.assertEquals(kingResults.toString(), results["C5Attack"].toString());
+			Assert.assertEquals(kingMoves.toString(), results["C5Move"].toString());
+			Assert.assertEquals(kingAttacks.toString(), results["C5Attack"].toString());
 		}
 		
 		[Test]
@@ -111,7 +112,7 @@ package flexUnitTests
 			var results:Array = moveGen.execute(new BitBoard(initalBoard));
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results[ChessPieces.WHITE + BitBoardTypes.ATTACK]);
-			Assert.assertEquals(initalResults.toString(), results[ChessPieces.WHITE + BitBoardTypes.ATTACK].toString());			
+			Assert.assertEquals(initalResults.toString(), results[ChessPieces.WHITE + BitBoardTypes.ATTACK].toString());
 		}		
 	}
 }
