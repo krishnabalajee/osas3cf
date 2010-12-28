@@ -7,11 +7,12 @@
 			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:flexui="flexunit.flexui.*" creationComplete="onCreationComplete()">
 	<fx:Script>
 		<![CDATA[
-			import flexUnitTests.ChessRulesTest;
-			import flexUnitTests.CoreTest;
+			import flexUnitTests.EndGameTest;
 			import flexUnitTests.MoveValidatorTest;
-			import flexUnitTests.StaticUtilies;
 			import flexUnitTests.ChessBoardTest;
+			import flexUnitTests.CoreTest;
+			import flexUnitTests.ChessRulesTest;
+			import flexUnitTests.StaticUtilies;
 			import flexUnitTests.PiecesTest;
 			import flexUnitTests.UtilityTests;
 			
@@ -20,11 +21,12 @@
 				var testsToRun:Array = new Array();
 				testsToRun.push(flexUnitTests.UtilityTests);
 				testsToRun.push(flexUnitTests.PiecesTest);
-				testsToRun.push(flexUnitTests.ChessBoardTest);
 				testsToRun.push(flexUnitTests.StaticUtilies);
-				testsToRun.push(flexUnitTests.MoveValidatorTest);
-				testsToRun.push(flexUnitTests.CoreTest);
 				testsToRun.push(flexUnitTests.ChessRulesTest);
+				testsToRun.push(flexUnitTests.CoreTest);
+				testsToRun.push(flexUnitTests.ChessBoardTest);
+				testsToRun.push(flexUnitTests.MoveValidatorTest);
+				testsToRun.push(flexUnitTests.EndGameTest);
 				return testsToRun;
 			}
 			

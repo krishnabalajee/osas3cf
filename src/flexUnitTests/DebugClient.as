@@ -58,6 +58,11 @@ package flexUnitTests
 			return result;
 		}
 		
+		public function reset():void
+		{
+			metaDataStore = [];
+		}
+		
 		private function compareMetaData(metaDataA:MetaData, metaDataB:MetaData):Boolean
 		{
 			if(metaDataA.type != metaDataB.type)

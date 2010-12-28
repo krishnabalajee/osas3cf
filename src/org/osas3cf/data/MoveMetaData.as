@@ -34,6 +34,11 @@ package org.osas3cf.data
 		public static const VALID_MOVE:String		= "ValidMove";
 		public static const INVALID_MOVE:String 	= "InvalidMove";
 		
+		public static const CHECK:String = "Check";
+		public static const CHECKMATE:String = "Checkmate";
+		public static const STALEMATE:String = "Stalemate";
+		public static const DRAW:String = "Draw";
+		
 		public function MoveMetaData(type:String, vo:MoveVO = null)
 		{
 			super(type, vo);
