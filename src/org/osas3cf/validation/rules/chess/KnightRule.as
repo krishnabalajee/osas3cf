@@ -46,13 +46,16 @@ package org.osas3cf.validation.rules.chess
 			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + BitBoardTypes.S]);
 			var color:String;
 			var attack:Array;
+			var move:Array;
 			for each(var square:String in squares)
 			{
 				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
 				attack = findAttacks(square, color, bitBoards);
+				move = BitOper.and(attack, BitOper.not(BitOper.and(attack, bitBoards[color + BitBoardTypes.S])));
 				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
-				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], attack) : attack;
+				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], move) : move;
+				bitBoards[color + BitBoardTypes.MOVE] = bitBoards[color + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[color + BitBoardTypes.MOVE], move) : move;
 			}
 		}
 		
@@ -60,43 +63,42 @@ package org.osas3cf.validation.rules.chess
 		{
 			var attack:BitBoard = new BitBoard();
 			var oppositeColor:String = (color == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
-			var validSquares:Array = BitOper.or(bitBoards[oppositeColor + BitBoardTypes.S], BitOper.not(bitBoards[BitBoardTypes.BOARD]));
 			var start:Point = BoardUtil.squareToArrayNote(square);
 			if(start.x + 2 <= 7)
 			{
 				//up right L
 				if(start.y + 1 <= 7)
-					attack[start.x + 2][start.y + 1] = validSquares[start.x + 2][start.y + 1];
+					attack[start.x + 2][start.y + 1] = 1;
 				//up left L
 				if(start.y - 1 >= 0)
-					attack[start.x + 2][start.y - 1] = validSquares[start.x + 2][start.y - 1];
+					attack[start.x + 2][start.y - 1] = 1;
 			}
 			if(start.x + 1 <= 7)
 			{
 				//right up L
 				if(start.y + 2 <= 7)
-					attack[start.x + 1][start.y + 2] = validSquares[start.x + 1][start.y + 2];
+					attack[start.x + 1][start.y + 2] = 1;
 				//left up L
 				if(start.y - 2 >= 0)
-					attack[start.x + 1][start.y - 2] = validSquares[start.x + 1][start.y - 2];				
+					attack[start.x + 1][start.y - 2] = 1;				
 			}
 			if(start.x - 1 >= 0)
 			{
 				//right down L
 				if(start.y + 2 <= 7)
-					attack[start.x - 1][start.y + 2] = validSquares[start.x - 1][start.y + 2];
+					attack[start.x - 1][start.y + 2] = 1;
 				//left down L
 				if(start.y - 2 >= 0)
-					attack[start.x - 1][start.y - 2] = validSquares[start.x - 1][start.y - 2];
+					attack[start.x - 1][start.y - 2] = 1;
 			}
 			if(start.x - 2 >= 0)
 			{
 				//down right L
 				if(start.y + 1 <= 7)
-					attack[start.x - 2][start.y + 1] = validSquares[start.x - 2][start.y + 1];
+					attack[start.x - 2][start.y + 1] = 1;
 				//down left L
 				if(start.y - 1 >= 0)
-					attack[start.x - 2][start.y - 1] = validSquares[start.x - 2][start.y - 1];				
+					attack[start.x - 2][start.y - 1] = 1;				
 			}
 			return attack;			
 		}

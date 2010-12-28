@@ -56,6 +56,8 @@ package org.osas3cf.validation
 				bitBoards[color + BitBoardTypes.S] = BitOper.contains(bitBoards[BitBoardTypes.BOARD], color);
 				bitBoards[color + BitBoardTypes.ATTACK] = new BitBoard();
 			}
+			//Update all pieces
+			bitBoards[BitBoardTypes.ALL_PIECES] = BitOper.or(bitBoards[BitBoardTypes.ALL_BLACK], bitBoards[BitBoardTypes.ALL_WHITE]);
 			//Update piece boards
 			for each(var ruleSet:IPieceRule in ruleSets)
 			{

@@ -57,6 +57,7 @@ package org.osas3cf.validation.rules.chess
 				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
 				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], move) : move;
+				bitBoards[color + BitBoardTypes.MOVE] = bitBoards[color + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[color + BitBoardTypes.MOVE], move) : move;
 				validSquares = null;
 			}
 		}
@@ -69,20 +70,35 @@ package org.osas3cf.validation.rules.chess
 			var oppositeSquare:String = BoardUtil.getTrueSquares(oppositeKing)[0];
 			var oppositeKingBitBoard:BitBoard = createMoveBitBoard(oppositeSquare);
 			//Find all valid squares
-			//1. Free spaces and opponents pieces
-			validSquares = BitOper.or(bitBoards[oppositeColor + BitBoardTypes.S], BitOper.not(bitBoards[BitBoardTypes.BOARD]));
+			//1. All spaces
+			validSquares = BitOper.not(new BitBoard);
 			//2. Cannot be next to other king
 			validSquares = BitOper.and(validSquares, BitOper.not(oppositeKingBitBoard));
 			//3. Cannot move into check
 			validSquares = BitOper.and(validSquares, BitOper.not(bitBoards[oppositeColor + BitBoardTypes.ATTACK]));
+			//4. Cannot move in the XRAY of an attacking square
+			if(BoardUtil.isTrue(square, bitBoards[oppositeColor + BitBoardTypes.ATTACK]))
+			{
+				var xrayPieces:Array = BitOper.or(bitBoards[BitBoardTypes.ROOKS],BitOper.or(bitBoards[BitBoardTypes.BISHOPS],bitBoards[BitBoardTypes.QUEENS]));
+				var opponentSquares:Array = BoardUtil.getTrueSquares(BitOper.and(bitBoards[oppositeColor + BitBoardTypes.S], xrayPieces));
+				for each(var opponentSquare:String in opponentSquares)
+				{
+					if(BoardUtil.isTrue(square, bitBoards[opponentSquare + BitBoardTypes.ATTACK]))
+					{
+						//square is attacking king
+						validSquares = BitOper.and(validSquares, BitOper.not(bitBoards[opponentSquare + BitBoardTypes.XRAY]));
+					}
+				}
+			}
 			//Can move to all valid squares in the move pattern of a king 
 			return new BitBoard(BitOper.and(validSquares, createMoveBitBoard(square)));;
 		}
 		
 		private function findMoves(square:String, color:String, bitBoards:Array, attacks:Array):Array
 		{
+			//Cannot move to a square with same color piece
+			var move:Array = BitOper.and(attacks, BitOper.not(BitOper.and(attacks, bitBoards[color + BitBoardTypes.S])));
 			//Add castling
-			var move:BitBoard = new BitBoard(attacks);
 			var rank:String = (color == ChessPieces.WHITE) ? "1" : "8"; 
 			if(square == "E" + rank)
 			{
