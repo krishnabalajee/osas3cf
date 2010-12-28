@@ -308,5 +308,16 @@ package flexUnitTests
 			Assert.assertTrue(BoardUtil.isTrue(Square.G7, allPieces));
 			Assert.assertTrue(BoardUtil.isTrue(Square.H7, allPieces));				
 		}
+		
+		[Test]
+		public function testSum():void
+		{
+			Assert.assertEquals(BitOper.sum(allZeros),  0);
+			Assert.assertEquals(BitOper.sum(allOnes),   64);
+			Assert.assertEquals(BitOper.sum(allPieces), 32);
+			Assert.assertEquals(BitOper.sum(allWhite),  16);
+			Assert.assertEquals(BitOper.sum(allBlack),  16);
+			Assert.assertEquals(BitOper.sum(testText),  16);
+		}
 	}
 }
