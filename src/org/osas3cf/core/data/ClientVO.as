@@ -21,20 +21,20 @@
  **/
 package org.osas3cf.core.data
 {
-	import org.osas3cf.core.IClient;
+	import org.osas3cf.core.Client;
 	
 	public class ClientVO
 	{
-		private var _client:IClient;
+		private var _client:Client;
 		private var _params:Object;
 		
-		public function ClientVO(client:IClient, params:Object = null)
+		public function ClientVO(client:Client, params:Object = null)
 		{
 			_client = client;
 			_params = params ? params : {};
 		}
 		
-		public function get client():IClient	{return _client;}
+		public function get client():Client	{return _client;}
 		public function get params():Object		{return _params;}
 		public function toString():String		{return "ClientVO {client: "+client.name+", params: "+params+"}";}
 	}

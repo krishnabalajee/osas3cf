@@ -75,7 +75,7 @@ package org.osas3cf.core
 		{
 			CONFIG::debug{Debug.out(name + " adding client " + clientVO.client.name, this);}
 			clients.push(clientVO.client);
-			clientVO.client.addBroadcaster(this, clientVO);
+			clientVO.client.core::addBroadcaster(this, clientVO);
 		}
 		
 		private function removeClient(name:String):void
@@ -85,7 +85,7 @@ package org.osas3cf.core
 				if(clients[i].name == name)
 				{
 					CONFIG::debug{Debug.out(this.name + " removing client " + name, this)};
-					clients[i].removeBroadcaster(this.name);
+					clients[i].core::removeBroadcaster(this.name);
 					clients.splice(i, 1);
 					return;
 				}	
@@ -94,14 +94,14 @@ package org.osas3cf.core
 		
 		private function cleanUp():void
 		{
-			for each(var client:IClient in clients)
+			for each(var client:Client in clients)
 				addMetaData(new MetaData(MetaData.REMOVE_CLIENT, client.name));
 			clients = null;
 		}
 		
 		private function updateClients(metaData:MetaData):void
 		{
-			for each(var client:IClient in clients)
+			for each(var client:Client in clients)
 			{
 				client.onMetaData(metaData);
 			}

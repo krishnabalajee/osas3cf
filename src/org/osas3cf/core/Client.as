@@ -26,7 +26,7 @@ package org.osas3cf.core
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	
-	public class Client implements IClient
+	public class Client
 	{
 		private var broadcasters:Array = [];
 		
@@ -34,13 +34,13 @@ package org.osas3cf.core
 
 		public function onMetaData(metaData:MetaData):void{}
 		
-		final public function addBroadcaster(broadcaster:IBroadcaster, clientVO:ClientVO):void
+		final core function addBroadcaster(broadcaster:IBroadcaster, clientVO:ClientVO):void
 		{
 			broadcasters.push(broadcaster);
 			sendMetaData(new MetaData(MetaData.CLIENT_ADDED, clientVO));
 		}
 		
-		final public function removeBroadcaster(name:String):void
+		final core function removeBroadcaster(name:String):void
 		{
 			for(var i:String in broadcasters)
 			{
