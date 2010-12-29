@@ -21,8 +21,6 @@
  **/
 package org.osas3cf.validation.rules
 {
-	import org.osas3cf.data.BitBoard;
-
 	public interface IPieceRule
 	{
 		function execute(bitBoards:Array):void
