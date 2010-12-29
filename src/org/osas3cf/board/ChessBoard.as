@@ -27,7 +27,6 @@ package org.osas3cf.board
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.utility.Debug;
-	import org.osas3cf.validation.ChessBitBoardManger;
 	import org.osas3cf.validation.EndGame;
 	import org.osas3cf.validation.MoveValidator;
 

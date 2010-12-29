@@ -22,16 +22,14 @@
 package org.osas3cf.validation
 {
 	import org.osas3cf.board.ChessPieces;
-	import org.osas3cf.board.Pieces;
 	import org.osas3cf.core.Client;
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.metadata.BitBoardMetaData;
 	import org.osas3cf.data.ChessBitBoards;
+	import org.osas3cf.data.metadata.BitBoardMetaData;
 	import org.osas3cf.data.vo.BoardVO;
-	import org.osas3cf.utility.Debug;
 	import org.osas3cf.validation.rules.chess.*;
 	
 	public class ChessBitBoardManger extends Client

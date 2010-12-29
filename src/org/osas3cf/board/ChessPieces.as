@@ -23,12 +23,11 @@ package org.osas3cf.board
 {
 	import flash.geom.Point;
 	
-	import org.osas3cf.data.BitBoard;
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
-	import org.osas3cf.core.data.StateVO;
-	import org.osas3cf.utility.BoardUtil;
+	import org.osas3cf.data.BitBoard;
 	import org.osas3cf.data.vo.BoardVO;
+	import org.osas3cf.utility.BoardUtil;
 	
 	CONFIG::debug{import org.osas3cf.utility.Debug;}
 	

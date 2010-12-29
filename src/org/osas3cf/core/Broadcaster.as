@@ -21,7 +21,6 @@
  **/
 package org.osas3cf.core
 {
-	import org.osas3cf.core.core;
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	CONFIG::debug{import org.osas3cf.utility.Debug;}
