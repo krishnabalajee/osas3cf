@@ -28,7 +28,7 @@ package org.osas3cf.board
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.utility.BoardUtil;
-	import org.osas3cf.data.BoardState;
+	import org.osas3cf.data.vo.BoardVO;
 	
 	CONFIG::debug{import org.osas3cf.utility.Debug;}
 	
@@ -83,7 +83,7 @@ package org.osas3cf.board
 				}
 			}
 			CONFIG::debug{Debug.out("Piece setup complete", this);}
-			sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES, oldPieces,  new BitBoard(this.pieces))));
+			sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES, oldPieces,  new BitBoard(this.pieces))));
 		}
 		
 		override public function get name():String{return ChessPieces.NAME;}

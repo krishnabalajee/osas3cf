@@ -9,9 +9,9 @@ package flexUnitTests
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BoardState;
-	import org.osas3cf.data.MoveMetaData;
-	import org.osas3cf.data.MoveVO;
+	import org.osas3cf.data.vo.BoardVO;
+	import org.osas3cf.data.metadata.MoveMetaData;
+	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.Debug;
 	import org.osas3cf.validation.ChessBitBoardManger;
 	import org.osas3cf.validation.EndGame;
@@ -169,19 +169,19 @@ package flexUnitTests
 		public function testCheckDetection():void
 		{
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.BLACK + ChessPieces.QUEEN, Square.G7, Square.G6)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(whiteKingInCheck))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(whiteKingInCheck))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			debugger.reset();
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.B4, Square.B8)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(blackKingInCheck))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(blackKingInCheck))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			debugger.reset();
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.BLACK + ChessPieces.QUEEN, Square.H4, Square.B2)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(whiteKingEscapeCheckmate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(whiteKingEscapeCheckmate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			debugger.reset();
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.E1, Square.E8)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(blackKingEscapeCheckmate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(blackKingEscapeCheckmate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 		}
 		
@@ -190,13 +190,13 @@ package flexUnitTests
 		{
 			//Valid Checkmates
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.E1, Square.E8)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(blackKingInCheckmate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(blackKingInCheckmate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.DRAW));
 			debugger.reset();			
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.BLACK + ChessPieces.QUEEN, Square.E5, Square.B2)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(whiteKingInCheckmate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(whiteKingInCheckmate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.DRAW));
@@ -204,13 +204,13 @@ package flexUnitTests
 
 			//Invalid checkmates
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.BLACK + ChessPieces.QUEEN, Square.H4, Square.B2)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(whiteKingEscapeCheckmate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(whiteKingEscapeCheckmate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.DRAW));
 			debugger.reset();
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.E1, Square.E8)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(blackKingEscapeCheckmate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(blackKingEscapeCheckmate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.STALEMATE));
@@ -221,21 +221,21 @@ package flexUnitTests
 		public function testStalemate():void
 		{
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.BLACK + ChessPieces.QUEEN, Square.B8, Square.B3)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(whiteStalemate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(whiteStalemate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.STALEMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.DRAW));
 			debugger.reset();
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.A7, Square.H7)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(blackStalemate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(blackStalemate))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.STALEMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECK));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.DRAW));
 			debugger.reset();
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.A7, Square.H7)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(notStalemate))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(notStalemate))));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.STALEMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECK));
@@ -246,7 +246,7 @@ package flexUnitTests
 		public function testDraw():void
 		{
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.KING, Square.A2, Square.A1)));
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardState.PIECES, null, new BitBoard(draw))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new StateVO(BoardVO.PIECES, null, new BitBoard(draw))));
 			Assert.assertNotNull(debugger.getMetaDataType(MoveMetaData.DRAW));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.STALEMATE));
 			Assert.assertNull(debugger.getMetaDataType(MoveMetaData.CHECKMATE));

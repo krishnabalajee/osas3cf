@@ -9,11 +9,11 @@ package flexUnitTests
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardMetaData;
+	import org.osas3cf.data.metadata.BitBoardMetaData;
 	import org.osas3cf.data.BitBoardTypes;
-	import org.osas3cf.data.BoardState;
-	import org.osas3cf.data.MoveMetaData;
-	import org.osas3cf.data.MoveVO;
+	import org.osas3cf.data.vo.BoardVO;
+	import org.osas3cf.data.metadata.MoveMetaData;
+	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.Debug;
 	import org.osas3cf.validation.ChessBitBoardManger;
 	import org.osas3cf.validation.MoveValidator;
@@ -65,7 +65,7 @@ package flexUnitTests
 		[Test]
 		public function testUpdatingBroad():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(initalBoard))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES,null, new BitBoard(initalBoard))));
 			var bbmetaData:BitBoardMetaData = debugger.getMetaDataType(BitBoardMetaData.UPDATED) as BitBoardMetaData;
 			Assert.assertNotNull(bbmetaData);
 			Assert.assertTrue(bbmetaData.data is Array);
@@ -76,7 +76,7 @@ package flexUnitTests
 		[Test]
 		public function testMovingPiece():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES, null, new BitBoard(initalBoard))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES, null, new BitBoard(initalBoard))));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.PAWN, Square.D2, Square.D4)));
 			var bbmetaData:BitBoardMetaData = debugger.getMetaDataType(BitBoardMetaData.EVALUATED) as BitBoardMetaData;
 			Assert.assertNotNull(bbmetaData);
@@ -87,7 +87,7 @@ package flexUnitTests
 		[Test]
 		public function testInvalidMove():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(initalBoard))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES,null, new BitBoard(initalBoard))));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.PAWN, Square.D2, Square.E1)));
 			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
 			Assert.assertNotNull(moveMetaData);
@@ -98,7 +98,7 @@ package flexUnitTests
 		[Test]
 		public function testNoPieceOnSquare():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(emptyBoard))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES,null, new BitBoard(emptyBoard))));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.PAWN, Square.D2, Square.E1)));
 			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
 			Assert.assertNotNull(moveMetaData);
@@ -109,7 +109,7 @@ package flexUnitTests
 		[Test]
 		public function testPutOwnKingInCheck():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(putKingInCheck))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES,null, new BitBoard(putKingInCheck))));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.B4, Square.D4)));
 			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
 			Assert.assertNotNull(moveMetaData);
@@ -120,7 +120,7 @@ package flexUnitTests
 		[Test]
 		public function testMovingWhenKingInCheck():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(kingInCheck))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES,null, new BitBoard(kingInCheck))));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.E4, Square.H4)));
 			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
 			Assert.assertNotNull(moveMetaData);
@@ -131,7 +131,7 @@ package flexUnitTests
 		[Test]
 		public function testSavingKingFromCheck():void
 		{
-			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES,null, new BitBoard(kingInCheck))));
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES,null, new BitBoard(kingInCheck))));
 			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.E4, Square.B4)));
 			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.MOVE_PIECE) as MoveMetaData;
 			Assert.assertNotNull(moveMetaData);

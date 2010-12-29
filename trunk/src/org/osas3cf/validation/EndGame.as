@@ -25,10 +25,10 @@ package org.osas3cf.validation
 	import org.osas3cf.core.Client;
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
-	import org.osas3cf.data.BitBoardMetaData;
+	import org.osas3cf.data.metadata.BitBoardMetaData;
 	import org.osas3cf.data.BitBoardTypes;
-	import org.osas3cf.data.MoveMetaData;
-	import org.osas3cf.data.MoveVO;
+	import org.osas3cf.data.metadata.MoveMetaData;
+	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.BoardUtil;
 	import org.osas3cf.utility.Debug;
