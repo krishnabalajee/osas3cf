@@ -3,6 +3,7 @@ package flexUnitTests
 	import flexunit.framework.Assert;
 	
 	import org.osas3cf.board.ChessPieces;
+	import org.osas3cf.board.Square;
 	import org.osas3cf.data.BitBoard;
 	import org.osas3cf.data.BitBoardTypes;
 	import org.osas3cf.utility.BitOper;
@@ -113,6 +114,20 @@ package flexUnitTests
 			Assert.assertNotNull(results);
 			Assert.assertNotNull(results[ChessPieces.WHITE + BitBoardTypes.ATTACK]);
 			Assert.assertEquals(initalResults.toString(), results[ChessPieces.WHITE + BitBoardTypes.ATTACK].toString());
-		}		
+		}
+		
+		[Test]
+		public function testCastling():void
+		{
+			var results:Array = moveGen.execute(new BitBoard(castling));
+			Assert.assertNotNull(results);
+			Assert.assertNotNull(results["E1Move"]);
+			Assert.assertEquals(castlingMoves.toString(), results["E1Move"].toString());
+			
+			results = moveGen.execute(new BitBoard(blackCastling));
+			Assert.assertNotNull(results);
+			Assert.assertNotNull(results["E8Move"]);
+			Assert.assertEquals(blackCastlingMoves.toString(), results["E8Move"].toString());			
+		}
 	}
 }
