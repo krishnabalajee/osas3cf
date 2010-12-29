@@ -26,7 +26,9 @@ package org.osas3cf.board
 	import org.osas3cf.core.IBroadcaster;
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
+	import org.osas3cf.utility.Debug;
 	import org.osas3cf.validation.ChessBitBoardManger;
+	import org.osas3cf.validation.EndGame;
 	import org.osas3cf.validation.MoveValidator;
 
 	CONFIG::debug{import org.osas3cf.utility.Debug;}
@@ -51,6 +53,7 @@ package org.osas3cf.board
 					if(clientVO.client is ChessBoard)
 					{
 						var pieces:Array = clientVO.params.hasOwnProperty("setup") ? clientVO.params['setup'] : null;
+						Debug.out("Creating ChessBoard : " + pieces);
 						setUp(pieces);
 					}
 					break;	
@@ -70,6 +73,7 @@ package org.osas3cf.board
 			CONFIG::debug{Debug.out("Setting up chess board", this);}
 			var board:Object = {row:8, column:8};
 			board.setup = piecePostion;
+			addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new EndGame())));
 			addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new MoveValidator())));
 			addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(new ChessPieces(), board)));
 		}
