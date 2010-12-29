@@ -101,7 +101,7 @@ package org.osas3cf.utility
 			{
 				if(arrayA[i] is Array && arrayB[i] is Array)
 					result[i] = BitOper.and(arrayA[i], arrayB[i]);			
-				else if(String(arrayA[i]) != "0" && String(arrayB[i]) != "0")
+				else if(arrayA[i] != 0 && arrayB[i] != 0)
 					result[i] = 1;
 				else
 					result[i] = 0;	
@@ -125,7 +125,7 @@ package org.osas3cf.utility
 			{
 				if(arrayA[i] is Array && arrayB[i] is Array)
 					result[i] = BitOper.or(arrayA[i], arrayB[i]);				
-				else if(String(arrayA[i]) != "0" || String(arrayB[i]) != "0")
+				else if(arrayA[i] != 0 || arrayB[i] != 0)
 					result[i] = 1;
 				else
 					result[i] = 0;
@@ -145,7 +145,7 @@ package org.osas3cf.utility
 			{
 				if(array[i] is Array)
 					result[i] = BitOper.not(array[i]);			
-				else if(String(array[i]) == "0")
+				else if(array[i] == 0)
 					result[i] = 1;					
 				else
 					result[i] = 0;
@@ -164,7 +164,7 @@ package org.osas3cf.utility
 			{
 				if(arrayA[i] is Array && arrayB[i] is Array)
 					result[i] = BitOper.notX(arrayA[i], arrayB[i]);			
-				else if(String(arrayA[i]) == "0" || String(arrayB[i]) == "0")
+				else if(arrayA[i] == 0 || arrayB[i] == 0)
 					result[i] = 1;
 				else
 					result[i] = 0;	
@@ -185,7 +185,7 @@ package org.osas3cf.utility
 			{
 				if(array[i] is Array)
 					result += BitOper.sum(array[i]);
-				else if(String(array[i]) != "0")
+				else if(array[i] != 0)
 					result ++
 			}
 			return result;			
