@@ -54,6 +54,7 @@ package org.osas3cf.validation
 					}
 					break;
 				case BitBoardMetaData.UPDATED:
+					Debug.out("Calculating end game", this);
 					var bitBoards:Array = metaData.data as Array;
 					//see if the bitboard has a draw, stalemate, checkmate and then check
 					if(!BitOper.sum(bitBoards[currentTurn + BitBoardTypes.MOVE]))
