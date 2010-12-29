@@ -30,7 +30,7 @@ package org.osas3cf.validation
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.BitBoard;
 	import org.osas3cf.data.metadata.BitBoardMetaData;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.data.vo.BoardVO;
 	import org.osas3cf.data.metadata.MoveMetaData;
 	import org.osas3cf.data.vo.MoveVO;
@@ -72,11 +72,11 @@ package org.osas3cf.validation
 					currentColor = move.piece.indexOf(ChessPieces.WHITE) != -1 ? ChessPieces.WHITE : ChessPieces.BLACK;
 					
 					//Invalid if new square is not in move bitboard
-					if(!bitBoards[move.currentSquare + BitBoardTypes.MOVE] || !BoardUtil.isTrue(move.newSquare, bitBoards[move.currentSquare + BitBoardTypes.MOVE]))
+					if(!bitBoards[move.currentSquare + ChessBitBoards.MOVE] || !BoardUtil.isTrue(move.newSquare, bitBoards[move.currentSquare + ChessBitBoards.MOVE]))
 					{
 						CONFIG::debug
 						{
-							if(!bitBoards[move.currentSquare + BitBoardTypes.MOVE])
+							if(!bitBoards[move.currentSquare + ChessBitBoards.MOVE])
 								Debug.out("Invalid move, piece not on the original square",this);
 							else
 								Debug.out("Invalid move, move does not follow piece move",this);
@@ -98,8 +98,8 @@ package org.osas3cf.validation
 					bitBoards = metaData.data as Array;
 					//Invalid if move puts own king in check
 					var oppositeColor:String = (currentColor == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
-					var kingSquare:String = BoardUtil.getTrueSquares(BitOper.and(bitBoards[currentColor + BitBoardTypes.S], bitBoards[ChessPieces.KING + BitBoardTypes.S]))[0];
-					if(BoardUtil.isTrue(kingSquare, bitBoards[oppositeColor + BitBoardTypes.ATTACK]))
+					var kingSquare:String = BoardUtil.getTrueSquares(BitOper.and(bitBoards[currentColor + ChessBitBoards.S], bitBoards[ChessPieces.KING + ChessBitBoards.S]))[0];
+					if(BoardUtil.isTrue(kingSquare, bitBoards[oppositeColor + ChessBitBoards.ATTACK]))
 					{
 						CONFIG::debug{Debug.out("Invalid move, putting own king in check!",this);}
 						sendMetaData(new MoveMetaData(MoveMetaData.INVALID_MOVE, move));

@@ -5,7 +5,7 @@ package flexUnitTests
 	import org.osas3cf.board.ChessPieces;
 	import org.osas3cf.board.Square;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.Debug;
 	import org.osas3cf.validation.BitBoardGen;
@@ -112,8 +112,8 @@ package flexUnitTests
 		{
 			var results:Array = moveGen.execute(new BitBoard(initalBoard));
 			Assert.assertNotNull(results);
-			Assert.assertNotNull(results[ChessPieces.WHITE + BitBoardTypes.ATTACK]);
-			Assert.assertEquals(initalResults.toString(), results[ChessPieces.WHITE + BitBoardTypes.ATTACK].toString());
+			Assert.assertNotNull(results[ChessPieces.WHITE + ChessBitBoards.ATTACK]);
+			Assert.assertEquals(initalResults.toString(), results[ChessPieces.WHITE + ChessBitBoards.ATTACK].toString());
 		}
 		
 		[Test]

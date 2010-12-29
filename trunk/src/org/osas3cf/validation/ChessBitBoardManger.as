@@ -29,7 +29,7 @@ package org.osas3cf.validation
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.BitBoard;
 	import org.osas3cf.data.metadata.BitBoardMetaData;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.data.vo.BoardVO;
 	import org.osas3cf.utility.Debug;
 	import org.osas3cf.validation.rules.chess.*;
@@ -68,7 +68,7 @@ package org.osas3cf.validation
 					var state:StateVO = metaData.data as StateVO;
 					if(state.type == BoardVO.PIECES)
 					{
-						if(evaluatedBoards && state.newState.toString() == evaluatedBoards[BitBoardTypes.BOARD].toString())
+						if(evaluatedBoards && state.newState.toString() == evaluatedBoards[ChessBitBoards.BOARD].toString())
 							bitBoards = evaluatedBoards;
 						else
 							bitBoards = generator.execute(state.newState as BitBoard);

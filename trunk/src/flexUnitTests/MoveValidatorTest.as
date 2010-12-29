@@ -10,7 +10,7 @@ package flexUnitTests
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.BitBoard;
 	import org.osas3cf.data.metadata.BitBoardMetaData;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.data.vo.BoardVO;
 	import org.osas3cf.data.metadata.MoveMetaData;
 	import org.osas3cf.data.vo.MoveVO;
@@ -69,8 +69,8 @@ package flexUnitTests
 			var bbmetaData:BitBoardMetaData = debugger.getMetaDataType(BitBoardMetaData.UPDATED) as BitBoardMetaData;
 			Assert.assertNotNull(bbmetaData);
 			Assert.assertTrue(bbmetaData.data is Array);
-			Assert.assertEquals(bbmetaData.data[BitBoardTypes.BOARD].toString(), initalBoard);
-			Assert.assertEquals(bbmetaData.data[ChessPieces.WHITE+BitBoardTypes.ATTACK].toString(), initalResults);
+			Assert.assertEquals(bbmetaData.data[ChessBitBoards.BOARD].toString(), initalBoard);
+			Assert.assertEquals(bbmetaData.data[ChessPieces.WHITE+ChessBitBoards.ATTACK].toString(), initalResults);
 		}
 		
 		[Test]
@@ -81,7 +81,7 @@ package flexUnitTests
 			var bbmetaData:BitBoardMetaData = debugger.getMetaDataType(BitBoardMetaData.EVALUATED) as BitBoardMetaData;
 			Assert.assertNotNull(bbmetaData);
 			Assert.assertTrue(bbmetaData.data is Array);
-			Assert.assertEquals(bbmetaData.data[BitBoardTypes.ALL_WHITE].toString(), pD4);
+			Assert.assertEquals(bbmetaData.data[ChessBitBoards.ALL_WHITE].toString(), pD4);
 		}
 
 		[Test]

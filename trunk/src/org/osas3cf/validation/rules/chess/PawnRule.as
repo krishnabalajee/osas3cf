@@ -26,7 +26,7 @@ package org.osas3cf.validation.rules.chess
 	import org.osas3cf.board.ChessPieces;
 	import org.osas3cf.board.Pieces;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.BoardUtil;
 	import org.osas3cf.utility.Debug;
@@ -43,18 +43,18 @@ package org.osas3cf.validation.rules.chess
 		
 		public function execute(bitBoards:Array):void
 		{
-			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + BitBoardTypes.S]);
+			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + ChessBitBoards.S]);
 			var color:String;
 			var attack:Array;
 			for each(var square:String in squares)
 			{
-				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
+				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + ChessBitBoards.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
 				attack = findAttacks(square, color, bitBoards);
-				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
-				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
+				bitBoards[color  + ChessBitBoards.ATTACK] = bitBoards[color  + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[color + ChessBitBoards.ATTACK], attack) : attack;
+				bitBoards[square + ChessBitBoards.ATTACK] = bitBoards[square + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[square + ChessBitBoards.ATTACK], attack) : attack;
 				var move:Array = findMoves(square, color, bitBoards);
-				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], move) : move;
-				bitBoards[color + BitBoardTypes.MOVE] = bitBoards[color + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[color + BitBoardTypes.MOVE], move) : move;
+				bitBoards[square + ChessBitBoards.MOVE] = bitBoards[square + ChessBitBoards.MOVE] ? BitOper.or(bitBoards[square + ChessBitBoards.MOVE], move) : move;
+				bitBoards[color + ChessBitBoards.MOVE] = bitBoards[color + ChessBitBoards.MOVE] ? BitOper.or(bitBoards[color + ChessBitBoards.MOVE], move) : move;
 			}
 		}
 		
@@ -78,8 +78,8 @@ package org.osas3cf.validation.rules.chess
 		private function findMoves(square:String, color:String, bitBoards:Array):Array
 		{
 			var oppositeColor:String = (color == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
-			var move:BitBoard = new BitBoard(BitOper.and(bitBoards[square + BitBoardTypes.ATTACK], bitBoards[oppositeColor + BitBoardTypes.S]));
-			var validSquares:Array = BitOper.not(bitBoards[BitBoardTypes.BOARD]);
+			var move:BitBoard = new BitBoard(BitOper.and(bitBoards[square + ChessBitBoards.ATTACK], bitBoards[oppositeColor + ChessBitBoards.S]));
+			var validSquares:Array = BitOper.not(bitBoards[ChessBitBoards.BOARD]);
 			var start:Point = BoardUtil.squareToArrayNote(square);
 			var up:int = (color == ChessPieces.WHITE) ? 1 : -1;
 			if(start.x + up >= 0 && start.x + up <= 7)

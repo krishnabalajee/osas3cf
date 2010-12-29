@@ -27,7 +27,7 @@ package org.osas3cf.validation.rules.chess
 	import org.osas3cf.board.Pieces;
 	import org.osas3cf.board.Square;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.BoardUtil;
 	import org.osas3cf.utility.Debug;
@@ -45,19 +45,19 @@ package org.osas3cf.validation.rules.chess
 		
 		public function execute(bitBoards:Array):void
 		{
-			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + BitBoardTypes.S]);
+			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + ChessBitBoards.S]);
 			var color:String;
 			var attack:Array;
 			var move:Array;
 			for each(var square:String in squares)
 			{
-				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
+				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + ChessBitBoards.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
 				attack = findAttacks(square, color, bitBoards);
 				move = findMoves(square, color, bitBoards, attack);
-				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attack) : attack;
-				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attack) : attack;
-				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], move) : move;
-				bitBoards[color + BitBoardTypes.MOVE] = bitBoards[color + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[color + BitBoardTypes.MOVE], move) : move;
+				bitBoards[color  + ChessBitBoards.ATTACK] = bitBoards[color  + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[color + ChessBitBoards.ATTACK], attack) : attack;
+				bitBoards[square + ChessBitBoards.ATTACK] = bitBoards[square + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[square + ChessBitBoards.ATTACK], attack) : attack;
+				bitBoards[square + ChessBitBoards.MOVE] = bitBoards[square + ChessBitBoards.MOVE] ? BitOper.or(bitBoards[square + ChessBitBoards.MOVE], move) : move;
+				bitBoards[color + ChessBitBoards.MOVE] = bitBoards[color + ChessBitBoards.MOVE] ? BitOper.or(bitBoards[color + ChessBitBoards.MOVE], move) : move;
 				validSquares = null;
 			}
 		}
@@ -66,7 +66,7 @@ package org.osas3cf.validation.rules.chess
 		{
 			var oppositeColor:String = (color == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
 			//Find the move pattern of opposite King with out square validation.
-			var oppositeKing:Array = BitOper.and(bitBoards[oppositeColor + BitBoardTypes.S], bitBoards[name + BitBoardTypes.S]);
+			var oppositeKing:Array = BitOper.and(bitBoards[oppositeColor + ChessBitBoards.S], bitBoards[name + ChessBitBoards.S]);
 			var oppositeSquare:String = BoardUtil.getTrueSquares(oppositeKing)[0];
 			var oppositeKingBitBoard:BitBoard = createMoveBitBoard(oppositeSquare);
 			//Find all valid squares
@@ -75,18 +75,18 @@ package org.osas3cf.validation.rules.chess
 			//2. Cannot be next to other king
 			validSquares = BitOper.and(validSquares, BitOper.not(oppositeKingBitBoard));
 			//3. Cannot move into check
-			validSquares = BitOper.and(validSquares, BitOper.not(bitBoards[oppositeColor + BitBoardTypes.ATTACK]));
+			validSquares = BitOper.and(validSquares, BitOper.not(bitBoards[oppositeColor + ChessBitBoards.ATTACK]));
 			//4. Cannot move in the XRAY of an attacking square
-			if(BoardUtil.isTrue(square, bitBoards[oppositeColor + BitBoardTypes.ATTACK]))
+			if(BoardUtil.isTrue(square, bitBoards[oppositeColor + ChessBitBoards.ATTACK]))
 			{
-				var xrayPieces:Array = BitOper.or(bitBoards[BitBoardTypes.ROOKS],BitOper.or(bitBoards[BitBoardTypes.BISHOPS],bitBoards[BitBoardTypes.QUEENS]));
-				var opponentSquares:Array = BoardUtil.getTrueSquares(BitOper.and(bitBoards[oppositeColor + BitBoardTypes.S], xrayPieces));
+				var xrayPieces:Array = BitOper.or(bitBoards[ChessBitBoards.ROOKS],BitOper.or(bitBoards[ChessBitBoards.BISHOPS],bitBoards[ChessBitBoards.QUEENS]));
+				var opponentSquares:Array = BoardUtil.getTrueSquares(BitOper.and(bitBoards[oppositeColor + ChessBitBoards.S], xrayPieces));
 				for each(var opponentSquare:String in opponentSquares)
 				{
-					if(BoardUtil.isTrue(square, bitBoards[opponentSquare + BitBoardTypes.ATTACK]))
+					if(BoardUtil.isTrue(square, bitBoards[opponentSquare + ChessBitBoards.ATTACK]))
 					{
 						//square is attacking king
-						validSquares = BitOper.and(validSquares, BitOper.not(bitBoards[opponentSquare + BitBoardTypes.XRAY]));
+						validSquares = BitOper.and(validSquares, BitOper.not(bitBoards[opponentSquare + ChessBitBoards.XRAY]));
 					}
 				}
 			}
@@ -97,12 +97,12 @@ package org.osas3cf.validation.rules.chess
 		private function findMoves(square:String, color:String, bitBoards:Array, attacks:Array):Array
 		{
 			//Cannot move to a square with same color piece
-			var move:Array = BitOper.and(attacks, BitOper.not(BitOper.and(attacks, bitBoards[color + BitBoardTypes.S])));
+			var move:Array = BitOper.and(attacks, BitOper.not(BitOper.and(attacks, bitBoards[color + ChessBitBoards.S])));
 			//Add castling
 			var rank:String = (color == ChessPieces.WHITE) ? "1" : "8"; 
 			if(square == "E" + rank)
 			{
-				var rookSquares:Array = BoardUtil.getTrueSquares(BitOper.and(bitBoards[color + BitBoardTypes.S], bitBoards[ChessPieces.ROOK + BitBoardTypes.S]));
+				var rookSquares:Array = BoardUtil.getTrueSquares(BitOper.and(bitBoards[color + ChessBitBoards.S], bitBoards[ChessPieces.ROOK + ChessBitBoards.S]));
 				for each(var rookSquare:String in rookSquares)
 				{
 					if(rookSquare.charAt(0) == "H" && rookSquare.charAt(1) == rank)

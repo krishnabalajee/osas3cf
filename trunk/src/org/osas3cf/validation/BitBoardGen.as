@@ -22,7 +22,7 @@
 package org.osas3cf.validation
 {
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.Debug;
 	import org.osas3cf.validation.rules.IPieceRule;
@@ -42,7 +42,7 @@ package org.osas3cf.validation
 		{
 			if(!board)return null;
 			var bitBoards:Array = [];
-			bitBoards[BitBoardTypes.BOARD] = board;
+			bitBoards[ChessBitBoards.BOARD] = board;
 			updateBitBoards(bitBoards);
 			return bitBoards;
 		}
@@ -53,15 +53,15 @@ package org.osas3cf.validation
 			//Update color boards
 			for each(var color:String in colors)
 			{
-				bitBoards[color + BitBoardTypes.S] = BitOper.contains(bitBoards[BitBoardTypes.BOARD], color);
-				bitBoards[color + BitBoardTypes.ATTACK] = new BitBoard();
+				bitBoards[color + ChessBitBoards.S] = BitOper.contains(bitBoards[ChessBitBoards.BOARD], color);
+				bitBoards[color + ChessBitBoards.ATTACK] = new BitBoard();
 			}
 			//Update all pieces
-			bitBoards[BitBoardTypes.ALL_PIECES] = BitOper.or(bitBoards[BitBoardTypes.ALL_BLACK], bitBoards[BitBoardTypes.ALL_WHITE]);
+			bitBoards[ChessBitBoards.ALL_PIECES] = BitOper.or(bitBoards[ChessBitBoards.ALL_BLACK], bitBoards[ChessBitBoards.ALL_WHITE]);
 			//Update piece boards
 			for each(var ruleSet:IPieceRule in ruleSets)
 			{
-				bitBoards[ruleSet.name + BitBoardTypes.S] = BitOper.contains(bitBoards[BitBoardTypes.BOARD], ruleSet.name);
+				bitBoards[ruleSet.name + ChessBitBoards.S] = BitOper.contains(bitBoards[ChessBitBoards.BOARD], ruleSet.name);
 			}
 			//Update attack and move boards
 			for(var index:String in ruleSets)
