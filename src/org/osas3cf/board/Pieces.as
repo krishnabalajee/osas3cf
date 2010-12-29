@@ -27,9 +27,9 @@ package org.osas3cf.board
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BoardState;
-	import org.osas3cf.data.MoveMetaData;
-	import org.osas3cf.data.MoveVO;
+	import org.osas3cf.data.vo.BoardVO;
+	import org.osas3cf.data.metadata.MoveMetaData;
+	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.BoardUtil;
 	CONFIG::debug{import org.osas3cf.utility.Debug;}
 
@@ -59,7 +59,7 @@ package org.osas3cf.board
 					CONFIG::debug{Debug.out("Move "+square.piece+" from " + square.currentSquare +" to "+square.newSquare , this);}
 					setSquare(square.currentSquare, EMPTY_SQUARE);
 					setSquare(square.newSquare, square.piece);
-					sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES, oldState, new BitBoard(pieces))));
+					sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES, oldState, new BitBoard(pieces))));
 					break;
 				case MoveMetaData.CAPTURE_PIECE:
 					if(_capturedPieces.length > 0)
@@ -69,14 +69,14 @@ package org.osas3cf.board
 					square = metaData.data as MoveVO;
 					CONFIG::debug{Debug.out("Capture "+square.piece+" from " + square.currentSquare, this);}
 					_capturedPieces.push(square.piece);
-					sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.CAPTURED_PIECES, oldState, _capturedPieces)));
+					sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.CAPTURED_PIECES, oldState, _capturedPieces)));
 					break;
 				case MoveMetaData.PROMOTE_PIECE:
 					oldState = new BitBoard(pieces);
 					square = metaData.data as MoveVO;
 					CONFIG::debug{Debug.out("Promote "+square.piece+" from " + square.currentSquare, this);}
 					setSquare(square.currentSquare, square.piece);
-					sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardState(BoardState.PIECES, oldState, new BitBoard(pieces))));
+					sendMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES, oldState, new BitBoard(pieces))));
 					break;
 				case MetaData.CLEAN_UP:
 					cleanUp();

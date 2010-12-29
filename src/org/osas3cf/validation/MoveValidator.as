@@ -29,11 +29,11 @@ package org.osas3cf.validation
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardMetaData;
+	import org.osas3cf.data.metadata.BitBoardMetaData;
 	import org.osas3cf.data.BitBoardTypes;
-	import org.osas3cf.data.BoardState;
-	import org.osas3cf.data.MoveMetaData;
-	import org.osas3cf.data.MoveVO;
+	import org.osas3cf.data.vo.BoardVO;
+	import org.osas3cf.data.metadata.MoveMetaData;
+	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.BoardUtil;
 	import org.osas3cf.utility.Debug;
@@ -60,7 +60,7 @@ package org.osas3cf.validation
 					break;				
 				case MetaData.STATE_CHANGE:
 					var state:StateVO = metaData.data as StateVO
-					if(state.type == BoardState.PIECES)
+					if(state.type == BoardVO.PIECES)
 					{
 						currentBoard = state.newState as BitBoard;
 						move = null;

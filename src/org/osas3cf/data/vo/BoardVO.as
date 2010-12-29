@@ -19,17 +19,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
-package org.osas3cf.data
+package org.osas3cf.data.vo
 {
 	import org.osas3cf.core.data.StateVO;
 	
-	public class BoardState extends StateVO
+	public class BoardVO extends StateVO
 	{
 		public static const PIECES:String = "PiecesState";
 		public static const CAPTURED_PIECES:String = "CapturedPiecesState";
 		public static const BITBOARDS:String = "BitBoardsState";
 		
-		public function BoardState(type:String, oldState:Array, newState:Array)
+		public function BoardVO(type:String, oldState:Array, newState:Array)
 		{
 			super(type, oldState, newState);
 		}

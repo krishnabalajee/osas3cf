@@ -19,7 +19,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
-package org.osas3cf.data
+package org.osas3cf.data.metadata
 {
 	import org.osas3cf.core.data.MetaData;
 	

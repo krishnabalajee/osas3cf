@@ -19,24 +19,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  **/
-package org.osas3cf.data
+package org.osas3cf.data.metadata
 {
-	public class MoveVO
+	import org.osas3cf.core.data.MetaData;
+	import org.osas3cf.data.vo.MoveVO;
+
+	public class MoveMetaData extends MetaData
 	{
-		private var _piece:String;
-		private var _currentSquare:String;
-		private var _newSquare:String;
+		public static const MOVE_PIECE:String 		= "MovePiece";
+		public static const CAPTURE_PIECE:String 	= "CapturePiece";
+		public static const PROMOTE_PIECE:String 	= "PromotePiece";
 		
-		public function MoveVO(piece:String, currentSquare:String, newSquare:String = "")
+		public static const SUBMIT_MOVE:String 		= "SubmitMove";
+		//TODO:Is VALID_MOVE const needed or can MOVE_PIECE be the indicator of a value move?
+		public static const VALID_MOVE:String		= "ValidMove";
+		public static const INVALID_MOVE:String 	= "InvalidMove";
+		
+		public static const CHECK:String = "Check";
+		public static const CHECKMATE:String = "Checkmate";
+		public static const STALEMATE:String = "Stalemate";
+		public static const DRAW:String = "Draw";
+		
+		public function MoveMetaData(type:String, vo:MoveVO = null)
 		{
-			_piece = piece;
-			_currentSquare = currentSquare;
-			_newSquare = newSquare;
-		}
-		
-		public function get piece():String			{return _piece;}
-		public function get currentSquare():String	{return _currentSquare;}
-		public function get newSquare():String		{return _newSquare;}
-		public function toString():String			{return "MoveVO {piece: "+piece+", currentSquare: "+currentSquare+",  newSquare: "+newSquare+"}";}
+			super(type, vo);
+		}	
 	}
 }
