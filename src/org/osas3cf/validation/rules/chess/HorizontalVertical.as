@@ -26,7 +26,7 @@ package org.osas3cf.validation.rules.chess
 	import org.osas3cf.board.ChessPieces;
 	import org.osas3cf.board.Pieces;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.BoardUtil;
 	import org.osas3cf.utility.Debug;
@@ -43,21 +43,21 @@ package org.osas3cf.validation.rules.chess
 		
 		public function execute(bitBoards:Array):void
 		{
-			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + BitBoardTypes.S]);
+			var squares:Array = BoardUtil.getTrueSquares(bitBoards[name + ChessBitBoards.S]);
 			var color:String;
 			var attacks:Object;
 			var move:Array;
 			for each(var square:String in squares)
 			{
-				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + BitBoardTypes.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
+				color = (BoardUtil.isTrue(square, bitBoards[ChessPieces.WHITE + ChessBitBoards.S])) ? ChessPieces.WHITE : ChessPieces.BLACK;
 				attacks = findAttacks(square, color, bitBoards);
-				move = BitOper.and(attacks.piece, BitOper.not(BitOper.and(attacks.piece, bitBoards[color + BitBoardTypes.S])));
-				bitBoards[color  + BitBoardTypes.ATTACK] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attacks.piece) : attacks.piece;
-				bitBoards[square + BitBoardTypes.ATTACK] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attacks.piece) : attacks.piece;
-				bitBoards[color  + BitBoardTypes.XRAY] = bitBoards[color  + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[color + BitBoardTypes.ATTACK], attacks.xray) : attacks.xray;
-				bitBoards[square + BitBoardTypes.XRAY] = bitBoards[square + BitBoardTypes.ATTACK] ? BitOper.or(bitBoards[square + BitBoardTypes.ATTACK], attacks.xray) : attacks.xray;
-				bitBoards[square + BitBoardTypes.MOVE] = bitBoards[square + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[square + BitBoardTypes.MOVE], move) : move;
-				bitBoards[color + BitBoardTypes.MOVE] = bitBoards[color + BitBoardTypes.MOVE] ? BitOper.or(bitBoards[color + BitBoardTypes.MOVE], move) : move;
+				move = BitOper.and(attacks.piece, BitOper.not(BitOper.and(attacks.piece, bitBoards[color + ChessBitBoards.S])));
+				bitBoards[color  + ChessBitBoards.ATTACK] = bitBoards[color  + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[color + ChessBitBoards.ATTACK], attacks.piece) : attacks.piece;
+				bitBoards[square + ChessBitBoards.ATTACK] = bitBoards[square + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[square + ChessBitBoards.ATTACK], attacks.piece) : attacks.piece;
+				bitBoards[color  + ChessBitBoards.XRAY] = bitBoards[color  + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[color + ChessBitBoards.ATTACK], attacks.xray) : attacks.xray;
+				bitBoards[square + ChessBitBoards.XRAY] = bitBoards[square + ChessBitBoards.ATTACK] ? BitOper.or(bitBoards[square + ChessBitBoards.ATTACK], attacks.xray) : attacks.xray;
+				bitBoards[square + ChessBitBoards.MOVE] = bitBoards[square + ChessBitBoards.MOVE] ? BitOper.or(bitBoards[square + ChessBitBoards.MOVE], move) : move;
+				bitBoards[color + ChessBitBoards.MOVE] = bitBoards[color + ChessBitBoards.MOVE] ? BitOper.or(bitBoards[color + ChessBitBoards.MOVE], move) : move;
 			}
 		}
 		
@@ -73,7 +73,7 @@ package org.osas3cf.validation.rules.chess
 			{
 				if(!stop){
 					attack[start.x][i] = 1;
-					if(bitBoards[BitBoardTypes.ALL_PIECES][start.x][i]) 
+					if(bitBoards[ChessBitBoards.ALL_PIECES][start.x][i]) 
 						stop = true;
 				}else{
 					stop = true;
@@ -86,7 +86,7 @@ package org.osas3cf.validation.rules.chess
 			{
 				if(!stop){
 					attack[start.x][i] = 1;
-					if(bitBoards[BitBoardTypes.ALL_PIECES][start.x][i])
+					if(bitBoards[ChessBitBoards.ALL_PIECES][start.x][i])
 						stop = true;
 				}
 				xray[start.x][i] = 1;
@@ -97,7 +97,7 @@ package org.osas3cf.validation.rules.chess
 			{
 				if(!stop){
 					attack[i][start.y] = 1;
-					if(bitBoards[BitBoardTypes.ALL_PIECES][i][start.y])
+					if(bitBoards[ChessBitBoards.ALL_PIECES][i][start.y])
 						stop = true;
 				}
 				xray[i][start.y] = 1;
@@ -108,7 +108,7 @@ package org.osas3cf.validation.rules.chess
 			{
 				if(!stop){
 					attack[i][start.y] = 1;
-					if(bitBoards[BitBoardTypes.ALL_PIECES][i][start.y])
+					if(bitBoards[ChessBitBoards.ALL_PIECES][i][start.y])
 						stop = true;
 				}else{
 					stop = true;

@@ -21,7 +21,7 @@
  **/
 package org.osas3cf.data
 {
-	public class BitBoardTypes
+	dynamic public class ChessBitBoards extends Array
 	{
 		public static const BOARD:String = "Board";
 		public static const KINGS:String = "Kings";
@@ -41,6 +41,6 @@ package org.osas3cf.data
 		
 		public static const S:String = "s";
 		
-		public function BitBoardTypes(){}
+		public function ChessBitBoards(){}
 	}
 }

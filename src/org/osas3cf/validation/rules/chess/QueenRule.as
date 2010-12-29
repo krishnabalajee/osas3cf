@@ -26,7 +26,7 @@ package org.osas3cf.validation.rules.chess
 	import org.osas3cf.board.ChessPieces;
 	import org.osas3cf.board.Pieces;
 	import org.osas3cf.data.BitBoard;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.BoardUtil;
 	import org.osas3cf.utility.Debug;

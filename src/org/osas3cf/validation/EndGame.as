@@ -26,7 +26,7 @@ package org.osas3cf.validation
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.data.metadata.BitBoardMetaData;
-	import org.osas3cf.data.BitBoardTypes;
+	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.data.metadata.MoveMetaData;
 	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.BitOper;
@@ -57,9 +57,9 @@ package org.osas3cf.validation
 					Debug.out("Calculating end game", this);
 					var bitBoards:Array = metaData.data as Array;
 					//see if the bitboard has a draw, stalemate, checkmate and then check
-					if(!BitOper.sum(bitBoards[currentTurn + BitBoardTypes.MOVE]))
+					if(!BitOper.sum(bitBoards[currentTurn + ChessBitBoards.MOVE]))
 						sendMetaData(new MoveMetaData(MoveMetaData.STALEMATE));
-					else if(BitOper.sum(bitBoards[BitBoardTypes.ALL_PIECES]) == 2)
+					else if(BitOper.sum(bitBoards[ChessBitBoards.ALL_PIECES]) == 2)
 						sendMetaData(new MoveMetaData(MoveMetaData.DRAW));
 					else
 						findCheckMate(bitBoards);
@@ -74,18 +74,18 @@ package org.osas3cf.validation
 		
 		private function findCheckMate(bitBoards:Array):void
 		{
-			var kingSquare:String = BoardUtil.getTrueSquares(BitOper.and(bitBoards[BitBoardTypes.KINGS], bitBoards[currentTurn + BitBoardTypes.S]))[0];
-			if(BoardUtil.isTrue(kingSquare, bitBoards[opponent + BitBoardTypes.ATTACK]))
+			var kingSquare:String = BoardUtil.getTrueSquares(BitOper.and(bitBoards[ChessBitBoards.KINGS], bitBoards[currentTurn + ChessBitBoards.S]))[0];
+			if(BoardUtil.isTrue(kingSquare, bitBoards[opponent + ChessBitBoards.ATTACK]))
 			{
 				CONFIG::debug{Debug.out(currentTurn + " king in check", this)}
-				if(BitOper.sum(bitBoards[kingSquare + BitBoardTypes.MOVE]) == 0)
+				if(BitOper.sum(bitBoards[kingSquare + ChessBitBoards.MOVE]) == 0)
 				{
 					CONFIG::debug{Debug.out("King cannot move out of check", this)}
-					var opponentSquares:Array = BoardUtil.getTrueSquares(bitBoards[opponent + BitBoardTypes.S]);
+					var opponentSquares:Array = BoardUtil.getTrueSquares(bitBoards[opponent + ChessBitBoards.S]);
 					var attackingSquare:String;
 					for each(var square:String in opponentSquares)
 					{
-						if(BoardUtil.isTrue(kingSquare, bitBoards[square + BitBoardTypes.ATTACK]))
+						if(BoardUtil.isTrue(kingSquare, bitBoards[square + ChessBitBoards.ATTACK]))
 						{
 							if(attackingSquare){
 								CONFIG::debug{Debug.out("Two or more pieces attacking the king", this)};
@@ -96,16 +96,16 @@ package org.osas3cf.validation
 							}
 						}
 					}
-					if(BoardUtil.isTrue(attackingSquare, bitBoards[currentTurn + BitBoardTypes.ATTACK])){
+					if(BoardUtil.isTrue(attackingSquare, bitBoards[currentTurn + ChessBitBoards.ATTACK])){
 						CONFIG::debug{Debug.out("Can capture attacking piece", this)};
 						sendMetaData(new MoveMetaData(MoveMetaData.CHECK));
 						return;
 					}else{
 						CONFIG::debug{Debug.out("Cannot capture attacking piece", this)};
-						var attackSquares:Array = BoardUtil.getTrueSquares(bitBoards[attackingSquare + BitBoardTypes.ATTACK]);
+						var attackSquares:Array = BoardUtil.getTrueSquares(bitBoards[attackingSquare + ChessBitBoards.ATTACK]);
 						for each(var attackSquare:String in attackSquares)
 						{
-							if(BoardUtil.isTrue(attackSquare, bitBoards[currentTurn + BitBoardTypes.MOVE]))
+							if(BoardUtil.isTrue(attackSquare, bitBoards[currentTurn + ChessBitBoards.MOVE]))
 							{
 								CONFIG::debug{Debug.out("Can block check", this)}
 								sendMetaData(new MoveMetaData(MoveMetaData.CHECK));
