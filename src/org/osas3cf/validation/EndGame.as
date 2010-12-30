@@ -37,8 +37,8 @@ package org.osas3cf.validation
 	{
 		public static const NAME:String = "EndGame";
 		
-		private var currentTurn:String;
-		private var opponent:String;
+		private var currentTurn:String = ChessPieces.WHITE;
+		private var opponent:String = ChessPieces.BLACK;
 		
 		public function EndGame(){}
 		
@@ -46,11 +46,24 @@ package org.osas3cf.validation
 		{
 			switch(metaData.type)
 			{
+				case MetaData.CLIENT_ADDED:
+					var clientVO:ClientVO = metaData.data as ClientVO;
+					if(clientVO.client is EndGame)
+					{
+						if(clientVO.params["turn"])
+						{
+							currentTurn = clientVO.params["turn"]
+							opponent = (currentTurn == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
+						}
+					}
+					break;
 				case BitBoardMetaData.UPDATED:
 					Debug.out("Calculating end game", this);
 					var bitBoards:Array = metaData.data as Array;
 					//see if the bitboard has a draw, stalemate, checkmate and then check
-					if(!BitOper.sum(bitBoards[currentTurn + ChessBitBoards.MOVE]))
+					
+					Debug.out(currentTurn + ChessBitBoards.MOVE);
+					if(BitOper.sum(bitBoards[currentTurn + ChessBitBoards.MOVE]) == 0)
 						sendMetaData(new MoveMetaData(MoveMetaData.STALEMATE));
 					else if(BitOper.sum(bitBoards[ChessBitBoards.ALL_PIECES]) == 2)
 						sendMetaData(new MoveMetaData(MoveMetaData.DRAW));
@@ -60,8 +73,8 @@ package org.osas3cf.validation
 					break;
 				case MoveMetaData.MOVE_PIECE:
 					var move:MoveVO = metaData.data as MoveVO
-					currentTurn = move.piece.indexOf(ChessPieces.WHITE) == -1 ? ChessPieces.WHITE : ChessPieces.BLACK;
-					opponent = currentTurn == ChessPieces.WHITE ? ChessPieces.BLACK : ChessPieces.WHITE;
+					currentTurn = (move.piece.indexOf(ChessPieces.WHITE) == -1) ? ChessPieces.WHITE : ChessPieces.BLACK;
+					opponent = (currentTurn == ChessPieces.WHITE) ? ChessPieces.BLACK : ChessPieces.WHITE;
 					break;
 			}
 		}

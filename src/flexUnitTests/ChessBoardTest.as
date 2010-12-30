@@ -13,6 +13,8 @@ package flexUnitTests
 	import org.osas3cf.core.data.StateVO;
 	import org.osas3cf.data.metadata.BitBoardMetaData;
 	import org.osas3cf.data.metadata.MoveMetaData;
+	import org.osas3cf.utility.BitOper;
+	import org.osas3cf.utility.Debug;
 	
 	public class ChessBoardTest extends TestingBitBoards
 	{		
@@ -62,7 +64,7 @@ package flexUnitTests
 			debugClient = null;
 		}
 		
-		
+		[Test]
 		public function testChessBoard():void
 		{
 			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(chessBoard)));
@@ -70,7 +72,7 @@ package flexUnitTests
 			Assert.assertNotNull(debugClient.getMetaDataType(BitBoardMetaData.UPDATED));
 		}
 		
-		
+		[Test]
 		public function testBoardSetup():void
 		{
 			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(chessBoard, {setup:rookBoard})));
@@ -81,10 +83,9 @@ package flexUnitTests
 			Assert.assertEquals(rookMoves.toString(), bitBoards["D5Move"].toString());
 		}
 		
-		
+		[Test]
 		public function testCheckmate():void
 		{
-			//This test will fail without sending who's turn it is.
 			broadcaster.addMetaData(new MetaData(MetaData.ADD_CLIENT, new ClientVO(chessBoard, {setup:whiteKingInCheckmate})));
 			Assert.assertNotNull(debugClient.getMetaDataType(MoveMetaData.CHECKMATE));		
 		}
