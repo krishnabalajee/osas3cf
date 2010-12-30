@@ -46,13 +46,6 @@ package org.osas3cf.validation
 		{
 			switch(metaData.type)
 			{
-				case MetaData.CLIENT_ADDED:
-					var client:ClientVO = metaData.data as ClientVO;
-					if(client is EndGame)
-					{
-						//setup class
-					}
-					break;
 				case BitBoardMetaData.UPDATED:
 					Debug.out("Calculating end game", this);
 					var bitBoards:Array = metaData.data as Array;
@@ -63,6 +56,7 @@ package org.osas3cf.validation
 						sendMetaData(new MoveMetaData(MoveMetaData.DRAW));
 					else
 						findCheckMate(bitBoards);
+					sendMetaData(new MetaData(MetaData.COMPLETE, name));
 					break;
 				case MoveMetaData.MOVE_PIECE:
 					var move:MoveVO = metaData.data as MoveVO

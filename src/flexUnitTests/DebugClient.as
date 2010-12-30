@@ -48,13 +48,11 @@ package flexUnitTests
 		public function getMetaDataType(type:String):MetaData
 		{
 			var result:MetaData = null;
-			metaDataStore.reverse();
 			for each(var metaData:MetaData in metaDataStore)	
 			{
 				if(metaData.type == type)
 					result = metaData;
 			}
-			metaDataStore.reverse();
 			return result;
 		}
 		
