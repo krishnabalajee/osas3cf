@@ -3,7 +3,7 @@ package flexUnitTests
 	import flexunit.framework.Assert;
 	
 	import org.flexunit.async.Async;
-	import org.osas3cf.api.ClockEvent;
+	import org.osas3cf.events.ClockEvent;
 	import org.osas3cf.utility.Clock;
 
 	public class ClockTest
