@@ -7,24 +7,26 @@
 			   xmlns:mx="library://ns.adobe.com/flex/mx" minWidth="955" minHeight="600" xmlns:flexui="flexunit.flexui.*" creationComplete="onCreationComplete()">
 	<fx:Script>
 		<![CDATA[
-			import flexUnitTests.EndGameTest;
-			import flexUnitTests.MoveValidatorTest;
-			import flexUnitTests.ChessBoardTest;
-			import flexUnitTests.CoreTest;
-			import flexUnitTests.ChessRulesTest;
 			import flexUnitTests.StaticUtilies;
 			import flexUnitTests.PiecesTest;
+			import flexUnitTests.MoveValidatorTest;
+			import flexUnitTests.EndGameTest;
+			import flexUnitTests.CoreTest;
+			import flexUnitTests.ClockTest;
+			import flexUnitTests.ChessTimerTest;
+			import flexUnitTests.ChessRulesTest;
 			
 			public function currentRunTestSuite():Array
 			{
 				var testsToRun:Array = new Array();
+				testsToRun.push(flexUnitTests.ChessRulesTest);
+				testsToRun.push(flexUnitTests.ChessTimerTest);
+				testsToRun.push(flexUnitTests.ClockTest);
+				testsToRun.push(flexUnitTests.CoreTest);
+				testsToRun.push(flexUnitTests.EndGameTest);
+				testsToRun.push(flexUnitTests.MoveValidatorTest);
 				testsToRun.push(flexUnitTests.PiecesTest);
 				testsToRun.push(flexUnitTests.StaticUtilies);
-				testsToRun.push(flexUnitTests.ChessRulesTest);
-				testsToRun.push(flexUnitTests.CoreTest);
-				testsToRun.push(flexUnitTests.ChessBoardTest);
-				testsToRun.push(flexUnitTests.MoveValidatorTest);
-				testsToRun.push(flexUnitTests.EndGameTest);
 				return testsToRun;
 			}
 			

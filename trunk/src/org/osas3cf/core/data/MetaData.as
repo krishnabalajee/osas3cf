@@ -29,9 +29,11 @@ package org.osas3cf.core.data
 		public static const REMOVE_CLIENT:String 	= "RemoveClient";
 		public static const ADD_CLIENT:String 		= "AddClient";
 		
-		public static const STATE_CHANGE:String 	= "StateChange";
-		
 		public static const CLEAN_UP:String 		= "CleanUp";
+		
+		public static const COMPLETE:String 		= "Complete";
+		public static const READY:String			= "Ready"
+		public static const STATE_CHANGE:String 	= "StateChange";
 		
 		private var _source:String = "Core";
 		private var _type:String;
