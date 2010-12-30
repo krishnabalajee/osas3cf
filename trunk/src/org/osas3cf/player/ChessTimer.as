@@ -21,7 +21,7 @@
  **/
 package org.osas3cf.player
 {
-	import org.osas3cf.api.ClockEvent;
+	import org.osas3cf.events.ClockEvent;
 	import org.osas3cf.board.ChessPieces;
 	import org.osas3cf.core.Client;
 	import org.osas3cf.core.data.ClientVO;

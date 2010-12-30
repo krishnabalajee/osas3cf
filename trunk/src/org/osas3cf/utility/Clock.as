@@ -24,7 +24,7 @@ package org.osas3cf.utility
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import org.osas3cf.api.ClockEvent;
+	import org.osas3cf.events.ClockEvent;
 	import org.osas3cf.api.IClock;
 	import org.osas3cf.board.ChessPieces;
 	
