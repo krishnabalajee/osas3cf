@@ -26,14 +26,12 @@ package org.osas3cf.data.metadata
 
 	public class MoveMetaData extends MetaData
 	{
+		public static const SUBMIT_MOVE:String 		= "SubmitMove";
+		public static const INVALID_MOVE:String 	= "InvalidMove";
 		public static const MOVE_PIECE:String 		= "MovePiece";
+		
 		public static const CAPTURE_PIECE:String 	= "CapturePiece";
 		public static const PROMOTE_PIECE:String 	= "PromotePiece";
-		
-		public static const SUBMIT_MOVE:String 		= "SubmitMove";
-		//TODO:Is VALID_MOVE const needed or can MOVE_PIECE be the indicator of a value move?
-		public static const VALID_MOVE:String		= "ValidMove";
-		public static const INVALID_MOVE:String 	= "InvalidMove";
 		
 		public static const CHECK:String = "Check";
 		public static const CHECKMATE:String = "Checkmate";
