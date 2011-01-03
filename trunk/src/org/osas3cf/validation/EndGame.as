@@ -58,11 +58,9 @@ package org.osas3cf.validation
 					}
 					break;
 				case BitBoardMetaData.UPDATED:
-					Debug.out("Calculating end game", this);
+					CONFIG::debug{Debug.out("Calculating end game", this);}
 					var bitBoards:Array = metaData.data as Array;
 					//see if the bitboard has a draw, stalemate, checkmate and then check
-					
-					Debug.out(currentTurn + ChessBitBoards.MOVE);
 					if(BitOper.sum(bitBoards[currentTurn + ChessBitBoards.MOVE]) == 0)
 						sendMetaData(new MoveMetaData(MoveMetaData.STALEMATE));
 					else if(BitOper.sum(bitBoards[ChessBitBoards.ALL_PIECES]) == 2)
@@ -109,7 +107,7 @@ package org.osas3cf.validation
 						return;
 					}else{
 						CONFIG::debug{Debug.out("Cannot capture attacking piece", this)};
-						var attackSquares:Array = BoardUtil.getTrueSquares(bitBoards[attackingSquare + ChessBitBoards.ATTACK]);
+						var attackSquares:Array = BoardUtil.getTrueSquares(BoardUtil.getLine(attackingSquare, kingSquare));						
 						for each(var attackSquare:String in attackSquares)
 						{
 							if(BoardUtil.isTrue(attackSquare, bitBoards[currentTurn + ChessBitBoards.MOVE]))
@@ -117,12 +115,11 @@ package org.osas3cf.validation
 								CONFIG::debug{Debug.out("Can block check", this)}
 								sendMetaData(new MoveMetaData(MoveMetaData.CHECK));
 								return;
-							}else{
-								CONFIG::debug{Debug.out("Cannot block check", this)}
-								sendMetaData(new MoveMetaData(MoveMetaData.CHECKMATE));
-								return;
 							}
 						}
+						CONFIG::debug{Debug.out("Cannot block check", this)}
+						sendMetaData(new MoveMetaData(MoveMetaData.CHECKMATE));
+						return;
 					}
 				}else{
 					CONFIG::debug{Debug.out("King can move out of check", this)}
