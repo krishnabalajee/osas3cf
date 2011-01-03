@@ -7,6 +7,7 @@ package flexUnitTests
 	import org.osas3cf.board.Square;
 	import org.osas3cf.utility.BitOper;
 	import org.osas3cf.utility.BoardUtil;
+	import org.osas3cf.utility.Debug;
 	
 	public class StaticUtilies
 	{		
@@ -72,6 +73,24 @@ package flexUnitTests
 										["Test","Test","Test","Test","Test","Test","Test","Test"],
 										["Test","Test","Test","Test","Test","Test","Test","Test"],
 										["Test","Test","Test","Test","Test","Test","Test","Test"]];
+		
+		private var a1ToH8Line:Array =  [[0,0,0,0,0,0,0,0],
+										 [0,1,0,0,0,0,0,0],
+										 [0,0,1,0,0,0,0,0],
+										 [0,0,0,1,0,0,0,0],
+										 [0,0,0,0,1,0,0,0],
+										 [0,0,0,0,0,1,0,0],
+										 [0,0,0,0,0,0,1,0],
+										 [0,0,0,0,0,0,0,1]];
+		
+		private var a7ToA2Line:Array =  [[0,0,0,0,0,0,0,0],
+										 [1,0,0,0,0,0,0,0],
+										 [1,0,0,0,0,0,0,0],
+										 [1,0,0,0,0,0,0,0],
+										 [1,0,0,0,0,0,0,0],
+										 [1,0,0,0,0,0,0,0],
+										 [0,0,0,0,0,0,0,0],
+										 [0,0,0,0,0,0,0,0]];
 		
 		[Test]
 		public function testAnd():void
@@ -318,6 +337,13 @@ package flexUnitTests
 			Assert.assertEquals(BitOper.sum(allWhite),  16);
 			Assert.assertEquals(BitOper.sum(allBlack),  16);
 			Assert.assertEquals(BitOper.sum(testText),  16);
+		}
+		
+		[Test]
+		public function testLineTo():void
+		{
+			Assert.assertEquals(BoardUtil.getLine(Square.A1, Square.H8).toString(), a1ToH8Line.toString());
+			Assert.assertEquals(BoardUtil.getLine(Square.A7, Square.A2).toString(), a7ToA2Line.toString());
 		}
 	}
 }

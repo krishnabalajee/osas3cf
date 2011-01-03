@@ -68,12 +68,12 @@ package flexUnitTests
 				  // A B C D E F G H
 		private var blackKingInCheckmate:Array = [
 					[0,k,0,0,0,0,0,0], //1
-					[0,0,0,0,0,p,0,p], //2
+					[0,p,0,0,0,p,0,p], //2
 					[0,0,0,0,0,0,0,Q], //3
 					[0,0,0,0,0,0,0,0], //4
 					[0,0,0,0,0,0,0,0], //5
-					[0,0,0,0,0,0,0,0], //6
-					[0,0,0,r,0,0,0,0], //7
+					[0,0,0,0,0,0,0,R], //6
+					[0,R,0,r,0,0,0,0], //7
 					[0,0,0,0,r,0,K,0]];//8
 				  // A B C D E F G H
 		private var whiteKingEscapeCheckmate:Array = [

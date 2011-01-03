@@ -67,5 +67,34 @@ package org.osas3cf.utility
 			}
 			return results;
 		}
+		
+		public static function getLine(start:String, finish:String):Array
+		{
+			var result:BitBoard = new BitBoard();
+			var iterFile:int = 0;
+			if(finish.charCodeAt(0) > start.charCodeAt(0))
+				iterFile = 1;
+			else if(finish.charCodeAt(0) < start.charCodeAt(0))
+				iterFile = -1;
+			var iterRank:int = 0;
+			if(Number(finish.charAt(1)) > Number(start.charAt(1)))
+				iterRank = 1;
+			else if(Number(finish.charAt(1)) < Number(start.charAt(1)))
+				iterRank = -1;
+			var file:int =  Number((start.charCodeAt(0)) - String("A").charCodeAt(0))
+			var rank:int = Number(start.charAt(1));			
+			while(iterFile != 0 || iterRank != 0)
+			{
+				file += iterFile;
+				rank += iterRank;
+				if(rank <= 8 && rank >= 1 && file >= 0 && file <= 7)
+					result[rank - 1][file] = 1;
+				if(file == (finish.charCodeAt(0) - String("A").charCodeAt(0)))
+					iterFile  = 0;
+				if(rank == Number(finish.charAt(1)))
+					iterRank = 0;
+			}
+			return result;	
+		}
 	}
 }
