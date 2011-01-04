@@ -11,6 +11,7 @@
 			import flexUnitTests.ChessTimerTest;
 			import flexUnitTests.ClockTest;
 			import flexUnitTests.CoreTest;
+			import flexUnitTests.TestChessGame;
 			import flexUnitTests.MoveValidatorTest;
 			import flexUnitTests.StaticUtilies;
 			import flexUnitTests.ChessBoardTest;
@@ -25,6 +26,7 @@
 				testsToRun.push(flexUnitTests.ChessBoardTest);
 				testsToRun.push(flexUnitTests.StaticUtilies);
 				testsToRun.push(flexUnitTests.MoveValidatorTest);
+				testsToRun.push(flexUnitTests.TestChessGame);
 				testsToRun.push(flexUnitTests.CoreTest);
 				testsToRun.push(flexUnitTests.ClockTest);
 				testsToRun.push(flexUnitTests.ChessTimerTest);

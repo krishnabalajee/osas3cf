@@ -24,17 +24,17 @@ package org.osas3cf.utility
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
-	import org.osas3cf.events.ClockEvent;
 	import org.osas3cf.api.IClock;
 	import org.osas3cf.board.ChessPieces;
+	import org.osas3cf.events.ClockEvent;
 	
 	public class Clock extends Timer implements IClock
 	{
 		private var _time:int = 0;
 		private var _blackTime:int = 0;
 		private var _whiteTime:int = 0;
-		private var _whiteTotalTime:int = -1;
-		private var _blackTotalTime:int = -1;
+		private var _whiteTotalTime:Number = -1;
+		private var _blackTotalTime:Number = -1;
 		
 		private var whitesTurn:Boolean = true;
 		
@@ -70,8 +70,9 @@ package org.osas3cf.utility
 			super.stop();
 		}
 		
-		public function setTotalTime(white:int = -1, black:int = -1):void
+		public function setTotalTime(white:Number = -1, black:Number = -1):void
 		{
+			CONFIG::debug{Debug.out("white total time: "+white+", black total time: " + black,this)}
 			_whiteTotalTime = white;
 			_blackTotalTime = black;
 		}
