@@ -21,12 +21,12 @@
  **/
 package org.osas3cf.player
 {
-	import org.osas3cf.events.ClockEvent;
 	import org.osas3cf.board.ChessPieces;
 	import org.osas3cf.core.Client;
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.data.metadata.TimerMetaData;
+	import org.osas3cf.events.ClockEvent;
 	import org.osas3cf.utility.Clock;
 	import org.osas3cf.validation.EndGame;
 	

@@ -32,6 +32,7 @@ package org.osas3cf.validation
 	import org.osas3cf.data.ChessBitBoards;
 	import org.osas3cf.data.metadata.BitBoardMetaData;
 	import org.osas3cf.data.metadata.MoveMetaData;
+	import org.osas3cf.data.metadata.TimerMetaData;
 	import org.osas3cf.data.vo.BoardVO;
 	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.BitOper;
@@ -46,6 +47,7 @@ package org.osas3cf.validation
 		private var currentColor:String;
 		private var bitBoards:Array;
 		private var move:MoveVO;
+		private var turn:String;
 		
 		public function MoveValidator(){}
 		
@@ -70,6 +72,13 @@ package org.osas3cf.validation
 				case MoveMetaData.SUBMIT_MOVE:
 					move = metaData.data as MoveVO;
 					currentColor = move.piece.indexOf(ChessPieces.WHITE) != -1 ? ChessPieces.WHITE : ChessPieces.BLACK;
+					
+					if(turn != currentColor)
+					{
+						CONFIG::debug{Debug.out("Invalid move, not player's turn",this);}
+						sendMetaData(new MoveMetaData(MoveMetaData.INVALID_MOVE, move));
+						return;
+					}
 					
 					//Invalid if new square is not in move bitboard
 					if(!bitBoards[move.currentSquare + ChessBitBoards.MOVE] || !BoardUtil.isTrue(move.newSquare, bitBoards[move.currentSquare + ChessBitBoards.MOVE]))
@@ -110,7 +119,10 @@ package org.osas3cf.validation
 					break;
 				case BitBoardMetaData.UPDATED:
 					bitBoards = metaData.data as Array;				
-					break;				
+					break;
+				case TimerMetaData.NEW_TURN:
+					turn = String(metaData.data);
+					break;
 			}
 		}
 		
