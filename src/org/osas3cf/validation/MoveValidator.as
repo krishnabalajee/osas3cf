@@ -47,7 +47,7 @@ package org.osas3cf.validation
 		private var currentColor:String;
 		private var bitBoards:Array;
 		private var move:MoveVO;
-		private var turn:String;
+		private var turn:String = ChessPieces.WHITE;
 		
 		public function MoveValidator(){}
 		
