@@ -139,5 +139,16 @@ package flexUnitTests
 			Assert.assertTrue(moveMetaData.data is MoveVO);
 			Assert.assertEquals(moveMetaData.data["piece"], ChessPieces.WHITE + ChessPieces.ROOK);
 		}
+		
+		[Test]
+		public function testNotPlayerTurn():void
+		{
+			broadcaster.addMetaData(new MetaData(MetaData.STATE_CHANGE, new BoardVO(BoardVO.PIECES,null, new BitBoard(kingInCheck))));
+			broadcaster.addMetaData(new MoveMetaData(MoveMetaData.SUBMIT_MOVE, new MoveVO(ChessPieces.BLACK + ChessPieces.ROOK, Square.E4, Square.H4)));
+			var moveMetaData:MoveMetaData = debugger.getMetaDataType(MoveMetaData.INVALID_MOVE) as MoveMetaData;
+			Assert.assertNotNull(moveMetaData);
+			Assert.assertTrue(moveMetaData.data is MoveVO);
+			Assert.assertEquals(moveMetaData.data["piece"], ChessPieces.BLACK + ChessPieces.ROOK);
+		}
 	}
 }
