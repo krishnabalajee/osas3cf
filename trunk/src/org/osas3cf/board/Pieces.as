@@ -81,9 +81,6 @@ package org.osas3cf.board
 				case MetaData.CLEAN_UP:
 					cleanUp();
 					break;											
-				default:
-					
-					break;
 			}
 		}		
 		
@@ -103,6 +100,8 @@ package org.osas3cf.board
 				CONFIG::debug{Debug.out("Could not set piece, out of bounds of board", this);}
 				return;
 			}
+			if(piece != EMPTY_SQUARE && _pieces[point.x][point.y] != EMPTY_SQUARE)
+				sendMetaData(new MoveMetaData(MoveMetaData.CAPTURE_PIECE, new MoveVO(_pieces[point.x][point.y], square, square)));
 			_pieces[point.x][point.y] = piece;
 		}
 
