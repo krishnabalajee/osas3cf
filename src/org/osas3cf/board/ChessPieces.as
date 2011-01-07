@@ -26,7 +26,9 @@ package org.osas3cf.board
 	import org.osas3cf.core.data.ClientVO;
 	import org.osas3cf.core.data.MetaData;
 	import org.osas3cf.data.BitBoard;
+	import org.osas3cf.data.metadata.MoveMetaData;
 	import org.osas3cf.data.vo.BoardVO;
+	import org.osas3cf.data.vo.MoveVO;
 	import org.osas3cf.utility.BoardUtil;
 	
 	CONFIG::debug{import org.osas3cf.utility.Debug;}
@@ -58,8 +60,19 @@ package org.osas3cf.board
 		
 		override public function onMetaData(metaData:MetaData):void
 		{
+			if(metaData.type == MoveMetaData.MOVE_PIECE)
+			{
+				var move:MoveVO = metaData.data as MoveVO;
+				if(move.piece.indexOf(ChessPieces.KING) != -1)
+				{
+					if(sendRookCastleMove(move.piece, move.newSquare))
+					{
+						setSquare(move.newSquare, move.piece);
+						return;
+					}	
+				}
+			}
 			super.onMetaData(metaData);
-			
 			switch(metaData.type)
 			{
 				case MetaData.CLIENT_ADDED:
@@ -69,6 +82,34 @@ package org.osas3cf.board
 				break;
 			}
 		}
+		
+		private function sendRookCastleMove(king:String, square:String):Boolean
+		{
+			if(king.indexOf(ChessPieces.WHITE) != -1){
+				if(square == Square.G1)
+				{
+					sendMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.H1, Square.F1)));
+					return true;
+				}
+				if(square == Square.C1)
+				{
+					sendMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.WHITE + ChessPieces.ROOK, Square.A1, Square.D1)));
+					return true;
+				}
+			}else{
+				if(square == Square.G8)
+				{
+					sendMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.BLACK + ChessPieces.ROOK, Square.H8, Square.F8)));
+					return true;
+				}
+				if(square == Square.C8)
+				{
+					sendMetaData(new MoveMetaData(MoveMetaData.MOVE_PIECE, new MoveVO(ChessPieces.BLACK + ChessPieces.ROOK, Square.A8, Square.D8)));
+					return true;
+				}
+			}
+			return false;
+		}		
 		
 		private function setupPieces(pieces:Array = null):void
 		{

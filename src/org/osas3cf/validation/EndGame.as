@@ -67,6 +67,7 @@ package org.osas3cf.validation
 						sendMetaData(new MoveMetaData(MoveMetaData.DRAW));
 					else
 						findCheckMate(bitBoards);
+					CONFIG::debug{Debug.out("Ready", this);}
 					sendMetaData(new MetaData(MetaData.COMPLETE, name));
 					break;
 				case MoveMetaData.MOVE_PIECE:
@@ -94,7 +95,7 @@ package org.osas3cf.validation
 						{
 							if(attackingSquare){
 								CONFIG::debug{Debug.out("Two or more pieces attacking the king", this)};
-								sendMetaData(new MoveMetaData(MoveMetaData.CHECKMATE));
+								sendMetaData(new MoveMetaData(MoveMetaData.CHECKMATE, new MoveVO(currentTurn + ChessPieces.KING, kingSquare, kingSquare)));
 								return;	
 							}else{
 								attackingSquare = square;
@@ -103,7 +104,7 @@ package org.osas3cf.validation
 					}
 					if(BoardUtil.isTrue(attackingSquare, bitBoards[currentTurn + ChessBitBoards.ATTACK])){
 						CONFIG::debug{Debug.out("Can capture attacking piece", this)};
-						sendMetaData(new MoveMetaData(MoveMetaData.CHECK));
+						sendMetaData(new MoveMetaData(MoveMetaData.CHECK, new MoveVO(currentTurn + ChessPieces.KING, kingSquare, kingSquare)));
 						return;
 					}else{
 						CONFIG::debug{Debug.out("Cannot capture attacking piece", this)};
@@ -113,17 +114,17 @@ package org.osas3cf.validation
 							if(BoardUtil.isTrue(attackSquare, bitBoards[currentTurn + ChessBitBoards.MOVE]))
 							{
 								CONFIG::debug{Debug.out("Can block check", this)}
-								sendMetaData(new MoveMetaData(MoveMetaData.CHECK));
+								sendMetaData(new MoveMetaData(MoveMetaData.CHECK, new MoveVO(currentTurn + ChessPieces.KING, kingSquare, kingSquare)));
 								return;
 							}
 						}
 						CONFIG::debug{Debug.out("Cannot block check", this)}
-						sendMetaData(new MoveMetaData(MoveMetaData.CHECKMATE));
+						sendMetaData(new MoveMetaData(MoveMetaData.CHECKMATE, new MoveVO(currentTurn + ChessPieces.KING, kingSquare, kingSquare)));
 						return;
 					}
 				}else{
 					CONFIG::debug{Debug.out("King can move out of check", this)}
-					sendMetaData(new MoveMetaData(MoveMetaData.CHECK));
+					sendMetaData(new MoveMetaData(MoveMetaData.CHECK, new MoveVO(currentTurn + ChessPieces.KING, kingSquare, kingSquare)));
 					return;
 				}
 			}
